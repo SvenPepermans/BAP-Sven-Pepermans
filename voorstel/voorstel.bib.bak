@@ -30,4 +30,26 @@
   timestamp = {2014.01.23}
 }
 
+@PhdThesis{Nelson1981,
+  author = {Bruce Jay Nelson},
+  title  = {Remote Procedure Call},
+  year   = {1981},
+  url    = {https://ia801900.us.archive.org/22/items/bitsavers_xeroxparctoteProcedureCall_14151614/CSL-81-9_Remote_Procedure_Call.pdf},
+  file   = {:CSL-81-9_Remote_Procedure_Call.pdf:PDF},
+  school = {Carnegie-Mellon University},
+}
+
+@Documentation{Chalin,
+  author    = {Patrice Chalin},
+  title     = {gRPC documentation},
+  url       = {https://grpc.io/docs},
+  publisher = {The Linux Foundation},
+}
+
+@Documentation{Crockford,
+  author = {Douglas Crockford},
+  title  = {Introducing JSON},
+  url    = {https://www.json.org/json-en.html},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}
