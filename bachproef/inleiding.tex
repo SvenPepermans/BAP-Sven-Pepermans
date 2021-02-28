@@ -20,12 +20,17 @@ De inleiding moet de lezer net genoeg informatie verschaffen om het onderwerp te
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem Statement}}
 \label{sec:probleemstelling}
 
-Uit je probleemstelling moet duidelijk zijn dat je onderzoek een meerwaarde heeft voor een concrete doelgroep. De doelgroep moet goed gedefinieerd en afgelijnd zijn. Doelgroepen als ``bedrijven,'' ``KMO's,'' systeembeheerders, enz.~zijn nog te vaag. Als je een lijstje kan maken van de personen/organisaties die een meerwaarde zullen vinden in deze bachelorproef (dit is eigenlijk je steekproefkader), dan is dat een indicatie dat de doelgroep goed gedefinieerd is. Dit kan een enkel bedrijf zijn of zelfs één persoon (je co-promotor/opdrachtgever).
+Zoals eerder vermeld in deze bachelorproef is The Fashion Society constant aan het uitbreiden, dit onder andere door overnames en het openen van eigen nieuwe ZEB winkels. Elk van deze nieuwe winkels werkt via het centraal systeem en maakt dus onwetend gebruik van de Discovery API bij ondermeer het informeren van de stock, verkopen van een artikel, etc. Naarmate er meer winkels zijn zullen er ook meer gelijktijdige requests afgehandeld worden door de Discovery API. Door deze toename aan requests kan het al eens zijn dat de performantie daalt. Met dit onderzoek wordt hierop ingespeeld en wordt gekeken of gRPC met Protocol Buffers een performanter alternatief kan zijn op de huidige implementatie.
 
 \section{\IfLanguageName{dutch}{Onderzoeksvraag}{Research question}}
 \label{sec:onderzoeksvraag}
 
-Wees zo concreet mogelijk bij het formuleren van je onderzoeksvraag. Een onderzoeksvraag is trouwens iets waar nog niemand op dit moment een antwoord heeft (voor zover je kan nagaan). Het opzoeken van bestaande informatie (bv. ``welke tools bestaan er voor deze toepassing?'') is dus geen onderzoeksvraag. Je kan de onderzoeksvraag verder specifiëren in deelvragen. Bv.~als je onderzoek gaat over performantiemetingen, dan 
+De onderzoeksvragen die gevormt worden bij de vergelijking tussen gRPC met Protocol Buffers en REST met JSON zullen dan ook zijn als volgt.
+\begin{itemize}
+    \item Welk dataformaat is het meest performant voor de Discovery API van The Fashion Society?
+    \item Is gRPC met ProtocolBuffers sneller dan REST API met JSON voor de implementatie van The Fashion Society?
+    \item Is gRPC met ProtocolBuffers efficiënter dan REST API met JSON voor de implementatie van The Fashion Society?
+\end{itemize}
 
 \section{\IfLanguageName{dutch}{Onderzoeksdoelstelling}{Research objective}}
 \label{sec:onderzoeksdoelstelling}
