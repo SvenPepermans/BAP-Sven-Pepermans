@@ -15,17 +15,54 @@ In de inleiding is duidelijk geworden dat het onderzoek gericht zal zijn op twee
 \subsection{Algemeen}
 \label{subsec:Algemeen}
 
-JavaScript Object Notation of in het kort, JSON, is een tekstsyntaxis of dataformaat dat geïnspireerd is door de object literalen van JavaScript dat ook gekend staat als ECMAScript. Het maakt een gegevensuitwisseling tussen alle programmeertalen op een gestructureerde manier mogelijk. Hiervoor maakt JSON gebruik van een structuur van accolades, haakjes, dubbele punten en komma's dewelke zeer nuttig kan zijn in verschillende contexten, profielen en applicaties. Ondanks dat JSON geïnspireerd is door ECMAScript probeert het de interne data representatie ervan niet op te leggen aan andere programmeertalen, in plaats daarvan deelt JSON een onderdeel van ECMAScript's syntax met alle andere programmeertalen. JSON mag niet gezien worden als een specificatie van een volledige gegevensuitwisseling want dat is het ook niet. Bij een zinvolle gegevensuitwisseling wordt er een overeenstemming over de semantiek die gekoppeld is aan een gebruik van de JSON-syntaxis tussen producent en consument vereist. JSON kan wel gezien worden als een syntactisch raamwerk waaraan een specifieke semantiek kan worden gekoppeld.
+JavaScript Object Notation of in het kort, JSON, is zoals beschreven in Standard ECMA-404 ~\autocite{Json2017} een tekstsyntaxis of dataformaat dat geïnspireerd is door de object literalen van JavaScript dat ook gekend staat als ECMAScript. Het maakt een gegevensuitwisseling tussen alle programmeertalen op een gestructureerde manier mogelijk. Hiervoor maakt JSON gebruik van een structuur van accolades, haakjes, dubbele punten en komma's dewelke zeer nuttig kan zijn in verschillende contexten, profielen en applicaties. Ondanks dat JSON geïnspireerd is door ECMAScript probeert het de interne data representatie ervan niet op te leggen aan andere programmeertalen, in plaats daarvan deelt JSON een onderdeel van ECMAScript's syntax met alle andere programmeertalen. 
+
+JSON mag niet gezien worden als een specificatie van een volledige gegevensuitwisseling want dat is het ook niet. Bij een zinvolle gegevensuitwisseling wordt er een overeenstemming over de semantiek die gekoppeld is aan een gebruik van de JSON-syntaxis tussen producent en consument vereist. JSON kan wel gezien worden als een syntactisch raamwerk waaraan een specifieke semantiek kan worden gekoppeld.
 
 Doordat er veel verschillende types getallen zijn zoals, maar niet beperkt tot, decimale en binaire getallen, kiest JSON voor enkel een weergave van getallen die mensen gebruiken, namelijk een reeks cijfers. Ook al zijn alle programmeertalen het niet altijd eens over de interne representaties van getallen, ze weten wel hoe ze cijferreeksen moeten begrijpen.
+
 Zoals nu wel duidelijk is kunnen programmeertalen sterk verschillen in mate van wat ondersteund wordt en hoe iets moet gerepresenteerd worden. Dit geldt ook voor objecten, niet alle programmeertalen ondersteunen objecten, en indien ze dit wel doen is er nog steeds een groot verschil in de kenmerken en beperkingen de objecten bieden. Met andere woorden kunnen de modellen van objectsystemen heel erg uiteenlopen. Om dit probleem aan te pakken biedt JSON een eenvoudige notatie aan voor het uitdrukken van verzamelingen met naam / waarde-paren. Om zulke verzamelingen weer te geven hebben de meeste programmeertalen reeds een functie zoals maar niet beperkt tot, struct, map, hash, object.
 Daarnaast biedt JSON ook ondersteuning voor geordende zoeklijsten, alsook hiervoor hebben alle programmeertalen een functie om deze weer te geven zoals array, vector en list. Aangezien objecten en arrays zich kunnen nesten kunnen aan de hand van JSON complexe structuren zoals boomstructuren worden gerepresenteerd.
+
 Hieruit kan dus geconcludeerd worden dat door het aanvaarden van JSON's simpele conventies, complexe datastructuren uitgewisseld kunnen worden tussen wat anders incompatibele programmeertalen zijn.
 
 
 
 \subsection{Representatie}
 \label{subsec:Representatie}
+
+Een JSON-tekst bestaat uit een reeks tokens die gevormd zijn uit Unicode-codepunten en die in overeenstemming zijn met de JSON-waardegrammatica. Deze reeks tokens houdt in tekenreeksen, cijfers, zes structurele token en drie letterlijke naamtokens.
+Hieronder volgt een opsomming van de zes structurele tokens en de drie literal name tokens samen met de bijhorende Unicode.
+
+De zes structurele tokens:
+
+\begin{itemize}
+    \item $\rbrack$ Linker vierkante haak, U+005B
+    \item $\rbrack$ Rechter vierkante haak, U+005D
+    \item \{ Linker accolade, U+007B
+    \item \} Rechter accolade, U+007D
+    \item : Dubbele punt, U+003A
+    \item , Komma, U+002C
+\end{itemize}
+
+De drie literal name tokens:
+
+\begin{itemize}
+    \item true  U+0074 U+0072 U+0075 U+0065
+    \item false U+0066 U+0061 U+006C U+0073 U+0065
+    \item null  U+006E U+0075 U+006C U+006C 
+\end{itemize}
+
+Voor of na een token is het toegestaan om onbelangrijke witruimte te gebruiken. Witruimte kan beschreven worden als een willekeurige reeks van één of meerdere van onderstaande codepunten.
+
+\begin{itemize}
+    \item Tekentabel        U+0009
+    \item Regelinvoer       U+000A
+    \item Regelterugloop    U+000D
+    \item Spatie            U+0020
+\end{itemize}
+
+Witruimte is niet in elke token toegestaan, spatie is hierop een uitzondering en is wel toegestaan in strings.
 
 
 
