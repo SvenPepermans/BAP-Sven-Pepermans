@@ -28,10 +28,10 @@ Hieruit kan dus geconcludeerd worden dat door het aanvaarden van JSON's simpele 
 
 
 
-\subsection{Representatie}
-\label{subsec:Representatie}
+\subsection{Achterliggend}
+\label{subsec:Achterliggend}
 
-Een JSON-tekst bestaat uit een reeks tokens die gevormd zijn uit Unicode-codepunten en die in overeenstemming zijn met de JSON-waardegrammatica. Deze reeks tokens houdt in tekenreeksen, cijfers, zes structurele token en drie letterlijke naamtokens.
+Een JSON-tekst bestaat uit een reeks tokens die gevormd zijn uit Unicode-codepunten en die in overeenstemming zijn met de JSON-waardegrammatica. Deze reeks tokens bevat tekenreeksen, cijfers, zes structurele token en drie letterlijke naamtokens.
 Hieronder volgt een opsomming van de zes structurele tokens en de drie literal name tokens samen met de bijhorende Unicode.
 
 De zes structurele tokens:
@@ -48,9 +48,9 @@ De zes structurele tokens:
 De drie literal name tokens:
 
 \begin{itemize}
-    \item true  U+0074 U+0072 U+0075 U+0065
-    \item false U+0066 U+0061 U+006C U+0073 U+0065
-    \item null  U+006E U+0075 U+006C U+006C 
+    \item true      U+0074 U+0072 U+0075 U+0065
+    \item false     U+0066 U+0061 U+006C U+0073 U+0065
+    \item null      U+006E U+0075 U+006C U+006C 
 \end{itemize}
 
 Voor of na een token is het toegestaan om onbelangrijke witruimte te gebruiken. Witruimte kan beschreven worden als een willekeurige reeks van één of meerdere van onderstaande codepunten.
@@ -62,7 +62,39 @@ Voor of na een token is het toegestaan om onbelangrijke witruimte te gebruiken. 
     \item Spatie            U+0020
 \end{itemize}
 
-Witruimte is niet in elke token toegestaan, spatie is hierop een uitzondering en is wel toegestaan in strings.
+Witruimte is niet in elke token toegestaan, een spatie is hierop een uitzondering en is wel toegestaan in strings.
+
+\subsection{Waarden}
+\label{subsec:Waarden}
+
+De bovengestelde tokens vormen de ruggengraad van een JSON-bestand, echter is het de bedoeling dat een JSON-bestaand iets van data overdraagd. Deze data kan aan de hand verschillende waarden worden voorgesteld, namelijk als objecten, arrays, nummers, strings, true, false, null.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.75]{jsonValue}
+   \caption[JSON values]{De structuur van een JSON-waarde met alle mogelijke waarden die deze kan bevatten}
+   \label{fig:jsonValue}
+\end{figure}
+
+De eerste waarden die besproken worden zijn de objecten, deze worden voorgesteld over een paar accolades die geen of meerdere name/value paren kunnen incapsuleren zoals te zien is in figuur \ref{fig:jsonObject}. In zo een name/value paar is de naam een string en wordt gevolgd door een dubbele punt die de naam en waarde van elkaar onderscheidt. Optioneel is een komma na de waarde, die de waarde en de eventuele volgende naam van elkaar onderscheiden. De JSON syntax legt geen beperkingen op op vlak van de strings gebruikt als namen. Deze moeten met andere woorden niet uniek zijn en ze moeten geen bepaalde ordening volgen.
+
+\begin{figure}[h]
+    \centering
+\includegraphics[scale=0.75]{jsonObject}
+\caption[JSON Object]{De structuur van een JSON object.}
+    \label{fig:jsonObject}
+\end{figure}
+
+Een tweede waarde zijn de arrays, dit zijn vierkante haken die geen of meerdere waarden incapsuleren. Het bijzondere aan arrays is dat deze niet beperkt zijn tot een name/value paar maar dat deze zelf dus meerdere waarden en dus ook andere arrays kunnen bevatten en dus genest kunnen worden. Dit kan afgeleid worden uit figuur \ref{fig:jsonArray}. De array structuur wordt net zoals bij objecten geen beperkingen opgelegd op vlak van de ordening van de waarden, echter wordt de array structuur vooral gebruikt in situaties waar de ordening wel enig belang heeft.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.75]{jsonArray}
+    \caption[JSON Array]{De structuur van een JSON array.}
+    \label{fig:jsonArray}
+\end{figure}
+
+
 
 
 
