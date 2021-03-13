@@ -94,7 +94,40 @@ Een tweede waarde zijn de arrays, dit zijn vierkante haken die geen of meerdere 
     \label{fig:jsonArray}
 \end{figure}
 
+Als volgt zijn er de nummers, een nummer kan gedifinieerd worden als een sequentie van decimale cijfers. Bij deze sequentie cijfers is er geen overbodige voorloopnul, een nummer kan wel voorafgegaan worden door een min-teken met U+002D als Unicode code. Om te werken met kommagetallen wordt een decimaal punt gebruikt. Als ook kan een nummer voorafgegaan worden door een e met U+0065 als Unicode code of een E met U+0045 als Unicode code om een exponent aan te duiden, deze kunnen eventueel ook bijgestaan worden door + (U+002B) of - . Deze structuur is te zien in figuur \ref{fig:jsonNumber}.
+In Unicode kunnen de cijfers gevonden worden van U+0030 tot en met U+0039. 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.75]{jsonNumber}
+    \caption[JSON Nummer]{De structuur van een JSON nummer.}
+    \label{fig:jsonNumber}
+\end{figure}
+
+Tot slot zijn er de strings, deze representeren een tekst-waarde bestaande uit een sequentie van Unicode codepunten dewelke geïncapsuleerd zijn door aanhalingstekens die als Unicode code U+0022 hebben. Binnen deze aanhalingstekens zijn er echter enkele codepunten die niet gebruikt mogen worden, namelijk de karakters die moeten worden geëscaped. Dit zijn dan aanhalingstekens, backslash (U+005C), en de control karakters zijnde U+0000 tot en met U+OO1F
+Voor sommige escape-reeksweergaven bestaande uit twee tekens bestaat er wel een representatie binnen de string.
+Hieronder een representatie van zulke karakters.
+
+\begin{itemize}
+    \item \textbackslash “  aanhalingstekens
+    \item \textbackslash \textbackslash \space backslash
+    \item \textbackslash  / slash
+    \item \textbackslash b backspace
+    \item \textbackslash f form feed
+    \item \textbackslash n nieuwe lijn
+    \item \textbackslash r regelterugloopkarakter
+    \item \textbackslash t karakter tabulatie karakter                 
+\end{itemize}
+
+Daarnaast kan ook elk codepunt weergegeven worden als een hexadecimale sequentie, de betekenis hiervan is vastgelegd in ISO/IEC 10646. Hexadecimale getallen kunnen zowel cijfers als kleine letters en hoofdletters van A tot F zijn, de cijfers zijn te vinden in Unicode van U+0030 tot en met U+0039. De hoofdletters zijn van U+0041 tot en met U+0046 terwijl de kleine letters te vinden zijn van U+0041 tot en met U+0046.
+De codepunten die zich bevinden in het Basic Multilingual Plane, zijnde U+0000 tot en met U+FFFF, kunnen gerepresenteerd worden als een sequentie van zes karakters, namelijk een backslash gevolgd door een kleine letter u, en tot slot gevolgd door vier hexadecimale getallen die een codepunt encoderen.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.75]{jsonString}
+    \caption[JSON String]{De structuur van een JSON string.}
+    \label{fig:jsonString}
+\end{figure}
 
 
 
