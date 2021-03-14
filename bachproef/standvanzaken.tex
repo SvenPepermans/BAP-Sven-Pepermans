@@ -130,5 +130,39 @@ De codepunten die zich bevinden in het Basic Multilingual Plane, zijnde U+0000 t
 \end{figure}
 
 
+\section{REST}
+\label{sec:REST}
+
+Representational State Transfer (REST) is zoals beschreven door \textcite{Fielding2000} een architecturale stijl voor het ontwerpen van gedistribueerde hypermediasystemen. Om een interface als RESTful te kunnen beschrijven moet deze voldoen aan zes principes dewelke hieronder zullen worden uitgelegd. 
+
+\subsection{Client-Server}
+\label{subsec:Client-Server}
+
+Het eerste principe is Client-Server, hiermee wordt separation of concerns bedoeld. Door de concerns omtrent de user interface op te splitsen van de data storage concerns wordt de portabiliteit van de user interface verbeterd samen met de schaalbaarheid door het versimpelen van de server componenten. Als ook laat de opsplitsing toe dat de componenten zelfstandig kunnen groeien.
+\subsection{Stateless}
+\label{subsec:Stateless}
+
+\subsection{Cacheable}
+\label{subsec:Cacheable}
+
+\subsection{Uniform interface}
+\label{subsec:Uniform interface}
+
+\subsection{Layered system}
+\label{subsec:Layered system}
+
+\subsection{Code on demand}
+\label{subsec:Code on demand}
+
+\subsection{Resources}
+\label{subsec:Resources}
+Daarnaast kan bij REST elk stuk informatie een resource zijn, dit kan van alles zijn zoals documenten, services, collecties van andere resources, afbeeldingen, en dergelijke. In sommige gevallen wordt “Everything as a resource”  een zevende principe van REST genoemd. 
+
+Er valt af te leiden dat de definitie van een resource zeer abstract is, dit zorgt er voor dat cruciale features van de Web architectuur gebruikt kunnen worden. Eerst en vooral zorgt het voor generaliteit door meerdere bronnen en informatie te omvatten zonder deze te onderscheiden op basis van type of implementatie. Als volgt laat de abstracte definitie een late binding van de referentie aan een representatie toe, hierdoor kan content negotation plaatsvinden op basis van de kenmerken van de request. Tot slot maakt de abstracte definitie het mogelijk voor de auteur om een concept te refereren in plaats van een specifieke representatie van dat concept, hierdoor moeten links naar deze resource niet continue aangepast worden wanneer de representatie veranderd.
+Deze links, ook wel Resource Identifiers genoemd, verwijzen naar een resource die gebruikt wordt in een interactie tussen componenten.
+
+Om acties uit te voeren op een resource maakt REST gebruik van een representatie om de huidige of bedoelde staat van deze resource vast te leggen en deze uit te wisselen tussen componenten. Een representatie kan beschreven worden als een sequentie van bytes en bevat ook representatie metadata om deze bytes te beschrijven. Daarnaast bestaat een representatie uit verschillende onderdelen, namelijk de data, de metadata die de data beschrijft, en soms ook metadata die de metadata beschrijft, dit meestal met het doel om de integriteit van het bericht te verifiëren. Het dataformaat van een representatie is een media type ~\autocite{N.Freed1996}.
+
+
 
 

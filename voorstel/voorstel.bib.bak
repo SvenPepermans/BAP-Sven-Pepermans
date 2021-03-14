@@ -45,4 +45,11 @@
   url    = {https://medium.com/@EmperorRXF/evaluating-performance-of-rest-vs-grpc-1b8bdf0b22da},
 }
 
+@PhdThesis{Fielding2000,
+  author      = {Roy Thomas Fielding},
+  date        = {2000},
+  institution = {University of California, Irvine},
+  title       = {Architectural Styles and the Design of Network-based Software Architectures},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}
