@@ -7,7 +7,7 @@
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
 
-In de inleiding is duidelijk geworden dat het onderzoek gericht zal zijn op twee mogelijke dataformaten aan de hand van 2 verschillende structuren, namelijk JSON aan de hand van REST en gRPC aan de hand van Protocol Buffers. Om dit onderzoek volledig te kunnen begrijpen is het belangrijk om de werking en de basisprincipes van deze dataformaten en de daarbij behorende structuren te begrijpen. Om deze reden zullen eerst de werking en basisprincipes van JSON en REST worden uitgelegd, en als volgt die van gRPC en Protocol Buffers.
+In de inleiding is duidelijk geworden dat het onderzoek gericht zal zijn op twee mogelijke dataformaten aan de hand van 2 verschillende structuren, namelijk JSON aan de hand van REST en gRPC aan de hand van Protocol Buffers. Om dit onderzoek volledig te kunnen begrijpen is het belangrijk om de werking en de basisprincipes van deze dataformaten en de daarbij behorende structuren te begrijpen. Om deze reden zullen eerst de werking en basisprincipes van JSON en RESTful API worden uitgelegd, en als volgt die van gRPC en Protocol Buffers.
 
 \section{JSON}
 \label{sec:JSON}
@@ -15,7 +15,7 @@ In de inleiding is duidelijk geworden dat het onderzoek gericht zal zijn op twee
 \subsection{Algemeen}
 \label{subsec:Algemeen}
 
-JSON is een dataformaat zoals bijvoorbeeld XML en de afkorting staat voor JavaScript Object Notation. JSON is zoals beschreven in Standard ECMA-404 ~\autocite{Json2017} een dataformaat dat geïnspireerd is door de object constanten van JavaScript dat ook gekend staat als ECMAScript. Hiervoor maakt JSON gebruik van een structuur van accolades, haakjes, dubbele punten en komma's dewelke zeer nuttig kan zijn in verschillende contexten, profielen en applicaties. Een voorbeeld hiervan is te zien in figuur \ref{fig:jsonExample}.
+JSON is een dataformaat zoals bijvoorbeeld XML en de afkorting staat voor JavaScript Object Notation. JSON is zoals beschreven in Standard ECMA-404 ~\autocite{Json2017} een dataformaat dat geïnspireerd is door de object constanten van JavaScript dat ook gekend staat als ECMAScript en is een structuur van accolades, haakjes, dubbele punten en komma's die zeer nuttig kunnen zijn in verschillende contexten, profielen en applicaties. Een voorbeeld hiervan is te zien in figuur \ref{fig:jsonExample}.
 
 \begin{figure}[H]
     \centering
@@ -24,9 +24,9 @@ JSON is een dataformaat zoals bijvoorbeeld XML en de afkorting staat voor JavaSc
     \label{fig:jsonExample}
 \end{figure}
 
-JSON mag niet gezien worden als een specificatie van een gegevensuitwisseling want dat is het ook niet. Bij een zinvolle gegevensuitwisseling wordt er een overeenstemming over de semantiek die gekoppeld is aan een gebruik van JSON tussen producent en consument vereist. JSON kan wel gezien worden als een syntactisch raamwerk waaraan een specifieke semantiek kan worden gekoppeld.
+JSON mag niet gezien worden als een specificatie van een gegevensuitwisseling want dat is het ook niet. Bij een zinvolle gegevensuitwisseling wordt er een overeenstemming over de structuur die gekoppeld is aan een gebruik van JSON tussen producent en consument vereist. JSON kan wel gezien worden als een syntactisch raamwerk waaraan een specifieke structuur kan worden gekoppeld.
 
-Doordat er veel verschillende types getallen zijn zoals, maar niet beperkt tot, decimale en binaire getallen, kiest JSON voor enkel een weergave van getallen die mensen gebruiken, namelijk een reeks cijfers. Ook al zijn alle programmeertalen het niet altijd eens over de interne representaties van getallen, ze weten wel hoe ze cijferreeksen moeten begrijpen.
+Doordat er veel verschillende types getallen zijn zoals decimale en binaire getallen, kiest JSON enkel voor een weergave van getallen die mensen gebruiken, namelijk een reeks cijfers. Ook al zijn alle programmeertalen het niet altijd eens over de interne representaties van getallen, ze weten wel hoe ze cijferreeksen moeten begrijpen.
 
  Objecten kunnen op veel verschillende manieren voorgesteld worden, met andere woorden kunnen de modellen van objecten heel erg uiteenlopen. Om dit probleem aan te pakken biedt JSON een eenvoudige notatie aan voor het uitdrukken van verzamelingen met naam / waarde-paren. Om zulke verzamelingen weer te geven hebben de meeste programmeertalen reeds een functie zoals struct, map, hash en object.
 Daarnaast biedt JSON ook ondersteuning voor geordende zoeklijsten, alsook hiervoor hebben alle programmeertalen een functie om deze weer te geven zoals array, vector en list. Aangezien objecten en arrays zich kunnen nesten, kunnen aan de hand van JSON complexe structuren zoals boomstructuren worden gerepresenteerd.
@@ -38,8 +38,8 @@ Hieruit kan worden geconcludeerd dat door het aanvaarden van JSON's simpele conv
 \subsection{JSON in detail bekeken}
 \label{subsec:JSON in detail bekeken}
 
-Een JSON-tekst bestaat uit een reeks tokens die gevormd zijn uit Unicode-codepunten en die in overeenstemming zijn met de JSON-waardegrammatica. Deze reeks tokens bevat tekenreeksen, cijfers, zes structurele token en drie letterlijke naamtokens.
-Hieronder volgt een opsomming van de zes structurele tokens en de drie literal name tokens samen met de bijhorende Unicode.
+Een JSON-tekst bestaat uit een reeks tokens die gevormd zijn uit Unicode-codepunten en die in overeenstemming zijn met de achterliggende JSON grammatica. Zo een reeks tokens bevat tekenreeksen, cijfers, zes structurele tokens en drie letterlijke naamtokens.
+Hieronder volgt een opsomming van de zes structurele tokens en de drie literal name tokens.
 
 De zes structurele tokens:
 
@@ -60,7 +60,7 @@ De drie literal name tokens:
     \item null      
 \end{itemize}
 
-Voor of na een token is het toegestaan om witruimte te gebruiken. Witruimte kan beschreven worden als een willekeurige reeks van één of meerdere van onderstaande codepunten.
+Voor of na de meeste tokens is het toegestaan om witruimte te gebruiken, echter niet in ze allemaal, een spatie is hierop een uitzondering en is wel toegestaan in strings. deze witruimte kan beschreven worden als een willekeurige reeks van één of meerdere van onderstaande codepunten.
 
 \begin{itemize}
     \item Tekentabel       
@@ -69,12 +69,11 @@ Voor of na een token is het toegestaan om witruimte te gebruiken. Witruimte kan 
     \item Spatie           
 \end{itemize}
 
-Witruimte is niet in alle tokens toegestaan, een spatie is hierop een uitzondering en is wel toegestaan in strings.
 
 \subsection{Waarden}
 \label{subsec:Waarden}
 
-De bovengestelde tokens vormen de ruggengraat van een JSON-bestand, echter is het de bedoeling dat een JSON-bestand data overdraagt. Deze data kan aan de hand verschillende waarden worden voorgesteld, namelijk als objecten, arrays, nummers, strings, true, false en null.
+De bovengestelde tokens vormen de ruggengraat van een JSON-bestand, echter is het de bedoeling dat een JSON-bestand data overdraagt. Deze data kan aan de hand van verschillende waarden worden voorgesteld, namelijk als objecten, arrays, nummers, strings, true, false en null. Alle mogelijke waarden zijn zichtbaar in figuur \ref{jsonValue}.
 
 \begin{figure}[ht]
     \centering
@@ -83,7 +82,8 @@ De bovengestelde tokens vormen de ruggengraat van een JSON-bestand, echter is he
    \label{fig:jsonValue}
 \end{figure}
 
-De eerste waarden die besproken worden zijn de objecten, deze worden voorgesteld door een paar accolades die geen of meerdere name/value paren kunnen omringen zoals te zien is in figuur \ref{fig:jsonObject} en in figuur \ref{fig:objectEx}. In zo een name/value paar is de naam een string en wordt gevolgd door een dubbele punt die de naam en waarde van elkaar onderscheidt. Na de waarde kan optioneel een komma gezet worden, deze onderscheidt de waarde en de volgende naam van elkaar. Tot slot moeten de namen niet uniek zijn en moeten geen bepaalde ordening volgen.
+De eerste waarden die besproken worden zijn de objecten, deze worden voorgesteld door een paar accolades die geen of meerdere name/value paren kunnen omringen zoals te zien is in figuur \ref{fig:jsonObject} en in figuur \ref{fig:objectEx}. In zo een name/value paar is de naam een string en wordt gevolgd door een dubbele punt die de naam en waarde van elkaar onderscheidt. 
+Na de waarde kan optioneel een komma gezet worden, deze onderscheidt de waarde en de volgende naam van elkaar. Tot slot moeten de namen niet uniek zijn en moeten ze geen bepaalde ordening volgen.
 
 \begin{figure}[H]
     \centering
@@ -99,7 +99,7 @@ De eerste waarden die besproken worden zijn de objecten, deze worden voorgesteld
     \label{fig:objectEx}
 \end{figure}
 
-Een tweede waarde zijn de arrays, dit zijn vierkante haken die geen of meerdere waarden omringen. Het bijzondere aan arrays is dat deze niet beperkt zijn tot een name/value paar en dus ook andere arrays kunnen bevatten en genest kunnen worden. Dit kan afgeleid worden uit figuur \ref{fig:jsonArray}. De array structuur wordt net zoals bij objecten geen beperkingen opgelegd, echter wordt de array structuur vooral gebruikt in situaties waar de ordening wel enig belang heeft. Een voorbeeld hiervan is te zien in figuur \ref{fig:arrayEx}.
+Een tweede waarde zijn de arrays, dit zijn vierkante haken die geen of meerdere waarden omringen. Het bijzondere aan arrays is dat deze niet beperkt zijn tot een name/value paar en dus ook andere arrays kunnen bevatten en genest kunnen worden. Dit kan afgeleid worden uit figuur \ref{fig:jsonArray}. De array structuur wordt net zoals bij objecten geen beperkingen opgelegd, echter worden deze vooral gebruikt in situaties waar de ordening wel enig belang heeft. Figuur \ref{fig:arrayEx} is hier een duidelijk voorbeeld van.
 
 \begin{figure}[H]
     \centering
@@ -114,7 +114,7 @@ Een tweede waarde zijn de arrays, dit zijn vierkante haken die geen of meerdere 
     \label{fig:arrayEx}
 \end{figure}
 
-Als volgt zijn er de nummers, een nummer kan gedefinieerd worden als een sequentie van decimale cijfers. Bij deze sequentie cijfers is er geen overbodige voorloopnul, een nummer kan wel voorafgegaan worden door een min-teken, als ook kan een nummer voorafgegaan worden door zowel een kleine als een grote e om een exponent aan te duiden en kunnen eventueel bijgestaan worden door een plus- of min-teken. Om te werken met kommagetallen wordt een decimaal punt gebruikt. Deze structuur is te zien in figuur \ref{fig:jsonNumber} en een voorbeeld hiervan is te zien in \ref{fig:numberEx}.
+Als volgt zijn er de nummers, een nummer kan gedefinieerd worden als een sequentie van decimale cijfers. Bij deze sequentie cijfers is er geen overbodige voorloopnul, een nummer kan wel voorafgegaan worden door een min-teken, als ook kan een nummer voorafgegaan worden door zowel een kleine als een grote e om een exponent aan te duiden dat  eventueel kan worden bijgestaan door een plus- of min-teken. Om te werken met kommagetallen wordt een decimaal punt gebruikt. Deze structuur is te zien in figuur \ref{fig:jsonNumber} en een voorbeeld hiervan in figuur \ref{fig:numberEx}.
 
 \begin{figure}[H]
     \centering
@@ -130,11 +130,11 @@ Als volgt zijn er de nummers, een nummer kan gedefinieerd worden als een sequent
     \label{fig:numberEx}
 \end{figure}
 
-Tot slot zijn er de strings, deze representeren een tekst-waarde bestaande uit een sequentie van Unicode codepunten, deze zijn omringt door aanhalingstekens. Binnen deze aanhalingstekens zijn er echter enkele codepunten die niet gebruikt mogen worden, namelijk de karakters die moeten worden geëscaped. Dit zijn dan aanhalingstekens, backslash en de control karakters.
+Tot slot zijn er de strings, deze representeren een tekst-waarde bestaande uit een sequentie van Unicode codepunten en zijn omringt door aanhalingstekens. Binnen deze aanhalingstekens zijn er echter enkele codepunten die niet gebruikt mogen worden, namelijk de karakters die moeten worden geëscaped. Dit zijn dan aanhalingstekens, backslash en de control karakters.
 Voor sommige escape-reeksweergaven bestaande uit twee tekens bestaat er wel een representatie binnen de string, een representatie hiervan is te zien in \ref{fig:jsonString}.
 
-Daarnaast kan ook elk codepunt weergegeven worden als een hexadecimale sequentie, de betekenis hiervan is vastgelegd in ISO/IEC 10646. Hexadecimale getallen kunnen zowel cijfers als kleine letters en hoofdletters van A tot F zijn.
-De codepunten die zich bevinden in het Basic Multilingual Plane kunnen gerepresenteerd worden als een sequentie van zes karakters, namelijk een backslash gevolgd door een kleine letter u, en tot slot gevolgd door vier hexadecimale getallen die een codepunt encoderen.
+Daarnaast kan ook elk codepunt weergegeven worden als een hexadecimale sequentie, waarvan de betekenis is vastgelegd in ISO/IEC 10646. Hexadecimale getallen kunnen zowel cijfers als kleine letters en hoofdletters van A tot F zijn.
+De codepunten die zich bevinden in het Basic Multilingual Plane kunnen gerepresenteerd worden als een sequentie van zes karakters, namelijk een backslash gevolgd door een kleine letter u, en tot slot gevolgd door vier hexadecimale getallen die een codepunt encoderen. In figuur \ref{fig:jsonString} is de structuur van een string te zien.
 
 \begin{figure}[H]
     \centering
@@ -144,38 +144,72 @@ De codepunten die zich bevinden in het Basic Multilingual Plane kunnen gereprese
 \end{figure}
 
 
-\section{REST}
-\label{sec:REST}
+\section{RESTful API}
+\label{sec:RESTful API}
 
-Representational State Transfer (REST) is zoals beschreven door \textcite{Fielding2000} een architecturale stijl voor het ontwerpen van gedistribueerde hypermediasystemen. Om een API als RESTful te kunnen beschrijven moet deze voldoen aan zes principes die hieronder zullen worden uitgelegd. 
+Representational State Transfer (REST) is zoals beschreven door \textcite{Fielding2000} een architecturale stijl voor het ontwerpen van gedistribueerde hypermediasystemen.
+Een Application Program Interface (API) is een lijst van regels of restricties die ervoor zorgen dat verschillende programma's met elkaar kunnen communiceren. \autocite{Hubspire}
 
-\subsection{Client-Server}
-\label{subsec:Client-Server}
+De combinatie van REST en API is een RESTful API, wanneer een RESTful API gecalled wordt dan zal de server een representatie van de huidige staat van de gevraagde resource weergeven.
 
-Het eerste principe is Client-Server, hiermee wordt separation of concerns bedoeld. Door de concerns omtrent de user interface op te splitsen van de data storage concerns wordt de portabiliteit van de user interface verbeterd samen met de schaalbaarheid door het versimpelen van de server componenten. Als ook laat de opsplitsing toe dat de componenten zelfstandig kunnen groeien.
-\subsection{Stateless}
-\label{subsec:Stateless}
+\subsection{Design principes}
+\label{subsec:Design principes}
 
-\subsection{Cacheable}
-\label{subsec:Cacheable}
+Om een API als RESTful te kunnen beschrijven moet deze voldoen aan zes design principes die hieronder zullen worden verduidelijkt aan de hand van \autocite{Long} en \autocite{Naeem2021}
 
-\subsection{Uniform interface}
-\label{subsec:Uniform interface}
+\textbf{Client-Server}
 
-\subsection{Layered system}
-\label{subsec:Layered system}
+Dit principe zegt dat zowel de client als de server apart moeten kunnen worden ontwikkeld en moeten los staan van elkaar. Op deze manier wordt de handelbaarheid en schaalbaarheid aanzienlijk verbetered aangezien de gebruikersinterface los staat van de gegevensopslag.
 
-\subsection{Code on demand}
-\label{subsec:Code on demand}
 
-\subsection{Resources}
-\label{subsec:Resources}
-Daarnaast kan bij REST elk stuk informatie een resource zijn, dit kan van alles zijn zoals documenten, services, collecties van andere resources, afbeeldingen, en dergelijke. In sommige gevallen wordt “Everything as a resource”  een zevende principe van REST genoemd. 
+\textbf{Stateless}
 
-Er valt af te leiden dat de definitie van een resource zeer abstract is, dit zorgt er voor dat cruciale features van de Web architectuur gebruikt kunnen worden. Eerst en vooral zorgt het voor generaliteit door meerdere bronnen en informatie te omvatten zonder deze te onderscheiden op basis van type of implementatie. Als volgt laat de abstracte definitie een late binding van de referentie aan een representatie toe, hierdoor kan content negotation plaatsvinden op basis van de kenmerken van de request. Tot slot maakt de abstracte definitie het mogelijk voor de auteur om een concept te refereren in plaats van een specifieke representatie van dat concept, hierdoor moeten links naar deze resource niet continue aangepast worden wanneer de representatie veranderd.
-Deze links, ook wel Resource Identifiers genoemd, verwijzen naar een resource die gebruikt wordt in een interactie tussen componenten.
+Met stateless wordt bedoeld dat elke request die er naar de API gedaan wordt onafhankelijk is van elkaar, een request heeft dus geen resultaat nodig van een andere request om te kunnen verder gaan. Met andere woorden moet de server geen vorige requests en states opslaan wat de benaming 'Stateless' verklaard.
 
-Om acties uit te voeren op een resource maakt REST gebruik van een representatie om de huidige of bedoelde staat van deze resource vast te leggen en deze uit te wisselen tussen componenten. Een representatie kan beschreven worden als een sequentie van bytes en bevat ook representatie metadata om deze bytes te beschrijven. Daarnaast bestaat een representatie uit verschillende onderdelen, namelijk de data, de metadata die de data beschrijft, en soms ook metadata die de metadata beschrijft, dit meestal met het doel om de integriteit van het bericht te verifiëren. Het dataformaat van een representatie is een media type ~\autocite{N.Freed1996}.
+
+\textbf{Cacheable}
+
+Een REST API moet de mogelijkheid hebben om data te cachen, dit is het opslaan van data in digitaal geheugen. Volgens het Cacheable principe moet data in een response al dien niet duidelijk gecategoriseerd worden als cacheable of non-cacheable. Indien een response cacheable is dan mag de cliënt cache deze data opslaan voor gelijkaardige requests in de toekomst te beantwoorden.
+
+\textbf{Uniform interface}
+
+Voor aan het client-server principe te voldoen is een uniforme interface nodig die autonome ontwikkeling van de applicatie mogelijk maakt zonder de acties, modellen en services te koppelen aan de API-laag. Door dit principe wordt de hele architectuur gestroomlijnd en wordt de visibiliteit van de communicatie verbeterd. Er zijn echter wel verschillende architecturale controles nodig die de performantie binnen de architectuur sturen om een uniforme interface te bereiken.
+
+REST bevat vier interfacecontroles, namelijk: 
+
+\begin{enumerate}
+\item Identificatie van bronnen: Een Uniform Resource Locator (URL) identificeerd de online locatie van een resource.
+\item Beheer van bronnen door middel van representatie: Bronnen worden weergegeven aan de hand van media types ~\autocite{N.Freed1996} zoals JSON en XML.
+\item Zelfbeschrijvende communicatie: Een bericht bevat alle informatie die de ontvanger nodig heeft om de informatie te begrijpen. Er mag geen extra informatie in een aparte documentatie of apart bericht zitten. Deze zelfbeschrijvende communicatie gebeurd door het gebruik van de accept en content-type HTTP headers die de inhoud die verzonden of aangevraagd wordt beschrijft.
+\item Hypermedia: Hypermedia is data dat verzonden wordt van de server naar de cliënt met informatie over wat de cliënt vervolgens kan doen. Hyper Text Markup Language (HTML) ~\autocite{W3schools} is hier een voorbeeld van.
+\end{enumerate}
+\textbf{Layered system}
+
+De architectuur van een RESTful API bestaat uit verschillende lagen die door samen te werken een hiërarchie vormen die helpt bij het vormen van een flexibele, meer schaalbare applicatie. Dankzij het deze gelaagde structuur is de gevormde applicatie beter beveiligd, dit komt doordat componenten niet kunnen interageren buiten de eigen laag en de volgende laag. Daarnaast biedt het gedeelde caches aan die de schaalbaarheid verbeteren.
+
+Deze gelaagde architectuur zorgt tot slot voor meer stabiliteit doordat het de componenten beperkt zodanig dat een component niet verder kan 'zien' als de laag waarmee het interageerd.
+
+\textbf{Code on demand}
+
+Het 'Code on demand' principe zorgt ervoor dat codering kan worden gecommuniceerd via de API voor gebruik binnen de applicatie. De definitie van een RESTful API maakt het mogelijk dat functionaliteit aan de cliënt-kant kan worden uitgebreid door codering zoals applets of scripts te downloaden en te implementeren. Dit stroomlijnt cliënts door het aantal functies te verminderen die vooraf moeten worden geïmplementeerd.
+
+Naast statische resources zoals XML en JSON kan dus ook uitvoerbare code aangeleverd worden door de server.
+
+\textbf{Resources}
+
+Bij REST kan elk stuk informatie een resource zijn, dit kan van alles zijn zoals documenten, services, collecties van andere resources, afbeeldingen, en dergelijke. In sommige gevallen wordt “Everything as a resource”  een zevende principe van REST genoemd. 
+
+\subsection{Hoe werkt een REST API?}
+\label{subsec:Hoe werkt een RESTful API?}
+
+Zoals eerder vermeld in \ref{subsec:Design principes} heeft elke resource een unieke URL, zo een URL wordt een request genoemd waarbij de gereturnde data gekend staat als een response. In een RESTful API worden deze requests of transacties in vier componenten verdeeld:
+
+\begin{itemize}
+    \item \textbf{GET}: Deze request haalt een representatie van een resource op.
+    \item \textbf{PUT}: Met PUT wordt een bestaande resource geupdatet.
+    \item \textbf{POST}: Aan de hand van POST kunnen nieuwe resources en sub-resources aangemaakt worden.
+    \item \textbf{DELETE}: De DELETE request gaat een reeds bestaande resource verwijderen.
+\end{itemize}
 
 
 

@@ -1,28 +1,50 @@
 % Encoding: UTF-8
-@book{Knuth1998,
- author = {Knuth, Donald E.},
- title = {The art of computer programming,  volume 3: (2nd ed.) sorting and searching},
- year = {1998},
- publisher = {Addison Wesley Longman Publishing Co., Inc.},
- address = {Redwood City, CA, USA}
+
+@Online{Json2017,
+  author       = {ECMA},
+  date         = {2017},
+  title        = {The JSON Data Interchange Syntax},
+  url          = {https://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-404 1st edition October 2013.pdf},
+  organization = {ECMA International},
+  urldate      = {2020-12-16},
 }
 
-@book{Pollefliet2011,
-  author = {Pollefliet, Leen},
-  title = {Schrijven van verslag tot eindwerk: do's en don'ts},
-  year = {2011},
-  publisher = {Academia Press},
-  address = {Gent}
+@Online{Naeem2021,
+  author       = {Tehreem Naeem},
+  date         = {2021-02-04},
+  title        = {REST API Definition: What is REST API (RESTful API)?},
+  url          = {https://www.astera.com/type/blog/rest-api-definition/},
+  organization = {Astera},
+  urldate      = {2021-03-21},
 }
 
-@article{Creeger2009,
-  author = {Creeger, Mache},
-  journal = {Communications of the ACM},
-  number = {8},
-  pages = {50--56},
-  title = {{CTO Roundtable: Cloud Computing}},
-  volume = {52},
-  year = {2009}
+@Online{W3schools,
+  author  = {W3schools},
+  title   = {HTML Introduction},
+  url     = {https://www.w3schools.com/html/html_intro.asp},
+  urldate = {2021-03-21},
+}
+
+@Reference{Karine2020,
+  date   = {2020-03-29},
+  editor = {Samyn Karine},
+  title  = {REST API},
+  file   = {:C\:/Users/svenp/Downloads/RESTAPI.pdf:PDF},
+}
+
+@Online{Long,
+  author  = {Lauren Long},
+  editor  = {Aditya Mukerjee; Anjana Vakil},
+  title   = {What RESTful actually means},
+  url     = {https://codewords.recurse.com/issues/five/what-restful-actually-means},
+  urldate = {2021-03-21},
+}
+
+@Online{Hubspire,
+  author  = {Hubspire},
+  title   = {Application Programming Interface},
+  url     = {https://www.hubspire.com/resources/general/application-programming-interface/},
+  urldate = {2021-03-21},
 }
 
 @Comment{jabref-meta: databaseType:biblatex;}
