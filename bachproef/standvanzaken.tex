@@ -211,6 +211,83 @@ Zoals eerder vermeld in subsectie \ref{subsec:Design principes} heeft elke resou
     \item \textbf{DELETE}: De DELETE request gaat een reeds bestaande resource verwijderen.
 \end{itemize}
 
+\section{Protocol Buffers}
+\label{sec:Protocol Buffers}
+
+ In dit hoofdstuk zal Protocol Buffers verduidelijkt worden, dit is het dataformaat dat gebruikt zal worden bij de implementatie van gRPC. In dit onderzoek is Protocol Buffers de tegenhanger van JSON.
+
+\subsection{Wat zijn protocol buffers?}
+\label{subsec:Wat zijn protocol buffers?}
+
+Protocol buffers (protobuf) zijn net zoals JSON een manier om data te verzenden of op te slaan in bestanden en is ontwikkeld door Google zoals beschreven door \textcite{Kurion2020}. Een voorbeeld van een protobuf is te zien in figuur \ref{fig:protobufEx}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{protobufEx}
+    \caption[Protocol Buffer .proto bestand]{Een voorbeeld van een .proto bestand. (Bron: \url{https://betterprogramming.pub/understanding-protocol-buffers-43c5bced0d47})}
+    \label{fig:protobufEx}
+\end{figure}
+
+Formaten zoals JSON en XML zijn zeer flexibel maar zijn niet geoptimaliseerd voor het uitwisselen van data tussen meerdere microservices \autocite{Fowler2014} ongeacht het gebruikte platform. Protobuf is ontwikkeld met het oog op simpliciteit en performantie, om specifiek te zijn was het ontwikkeld om kleiner en sneller te zijn dan XML.
+
+Protobuf onderscheidt zich van andere dataformaten door vele verantwoordelijkheden te verwijderen die normaal door het dataformaat aangepakt worden. Hierdoor gaat protobuf zich vooral focussen op het zo snel mogelijk serialiseren en deserialiseren van data. Daarnaast is een tweede optimalisatie de bandbreedte die gebruikt wordt door het zo klein mogelijk maken van de data die verzonden wordt.
+
+Natuurlijk kan protobufs niet alleen voordelen hebben, een objectief nadeel dat protobuf heeft is dat het minder leesbaar is in vergelijking met JSON en XML.
+
+
+\subsection{Kerneigenschappen}
+\label{subsec:Kerneigenschappen}
+
+\textbf{Binair formaat}
+
+Protobuf is een binair dataformaat, dit betekend dat de verzonden data omgezet wordt naar ééntjes en nulletjes. Deze eigenschap zorgt voor een verbetering van de transmissiesnelheid doordat het dataformaat minder bandbreedte en ruimte inpakt. Tot slot zorgt de omzetting van string naar binair formaat ook voor compressie, hierdoor zal het CPU gebruik ook lager zijn.
+
+\textbf{Splitsing van context en data}
+
+Zoals in \ref{fig:JSONsEx} te zien is maakt een formaat zoals JSON gebruik van key-value paren waar de data en de context in éénzelfde bestand zitten wat ook meer ruimte in beslag neemt. Bij protobuf is dit anders, hier worden data en context opgesplitst in een configuratiebestand ook wel gekend als een .proto bestand, waarin de message wordt gedefinieerd, zie figuur \ref{fig:protobufEx}, en geëncodeerde data die verzonden wordt aan de hand van het configuratiebestand.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{JSONsEx}
+    \caption[Simpel JSON key-value voorbeeld]{Een simpel voorbeeld van een key-value JSON bestand. (Bron: \url{https://betterprogramming.pub/understanding-protocol-buffers-43c5bced0d47})}
+    \label{fig:JSONsEx}
+\end{figure}
+
+
+\subsection{Message formaat}
+\label{subsec:Message formaat}
+
+Zoals hierboven vermeld is het configuratiebestand de plaats waarin de context gedefinieerd wordt, met andere woorden wordt hier de structuur van een bepaald object bepaald. Deze structuur wordt als gedeclareerd door het “message” woord gevolgd door een zelfgekozen naam voor de message. Net zoals bij JSON worden de velden gedeclareerd binnen de accolades, deze velden kunnen elk in vier delen opgedeeld worden, namelijk veldregels, veldtypes, veldnamen en veldnummers \autocite{Google2020}.
+
+\textbf{Veldregels}
+
+In proto3 wordt enkel nog de “repeated” regel gebruikt, deze regel zegt dat de message dit veld meerdere keren mag bevatten met verschillende waarden. Met andere woorden, duid dit op een array van een bepaald veldtype.
+
+In proto2 waren er ook de required en optional regels. Required zorgt ervoor dat een message een bepaald veld exact één keer bevat en de optional regel zorgt ervoor dat een message een veld nul of één keer kan bevatten.
+
+\textbf{Veldtypes}
+
+Het field type is het datatype van een field, dit zijn er vier:
+
+\begin{itemize}
+    \item \textbf{Scalaire types}: Dit zijn de traditionele types zoals strings, integers, booleans, ...
+    \item \textbf{Enum}: Binnen een message is het mogelijk om een attribuut te hebben dat enkel één van een aantal vooraf bepaalde waarden mag hebben.
+    \item \textbf{Message types}: Net zoals bij andere dataformaten is het mogelijk dat een message andere messages als attribuut bevat.
+\end{itemize}
+
+\textbf{Veldnamen}
+
+Veldnamen moeten volledig in kleine letters zijn en indien ze uit meerdere woorden bestaan moeten deze opgesplitst worden door een underscore. In tegenstelling tot JSON wordt hier dus geen camelcasing gebruikt. Deze conventies zijn vastgelegd omdat dit ook de conventies zijn die gevolgd worden door de Protoc compiler die code gaat genereren op basis van het .proto bestand.
+
+\textbf{Veldnummer}
+
+Elk veld heeft een uniek nummer, deze nummers worden gebruikt om de velden te identificeren in het binaire formaat. Als gevolg mogen deze niet veranderd worden eens het message type reeds gebruikt is.
+
+
+
+
+
+
 
 
 
