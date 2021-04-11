@@ -75,4 +75,12 @@
   urldate = {2021-04-04},
 }
 
+@Online{FowlerDisObj,
+  author  = {Martin Fowler},
+  date    = {2014-08-13},
+  title   = {Microservices and the first law of distributed objects},
+  url     = {https://martinfowler.com/articles/distributed-objects-microservices.html},
+  urldate = {2021-04-11},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}

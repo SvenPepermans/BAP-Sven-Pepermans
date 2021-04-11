@@ -234,6 +234,8 @@ Protobuf onderscheidt zich van andere dataformaten door vele verantwoordelijkhed
 
 Natuurlijk kan protobufs niet alleen voordelen hebben, een objectief nadeel dat protobuf heeft is dat het minder leesbaar is in vergelijking met JSON en XML.
 
+Er bestaan meerdere versies van Protocol buffers, momenteel is de standaard protocol buffers versie 3 (proto3).
+
 
 \subsection{Kerneigenschappen}
 \label{subsec:Kerneigenschappen}
@@ -252,7 +254,6 @@ Zoals in \ref{fig:JSONsEx} te zien is maakt een formaat zoals JSON gebruik van k
     \caption[Simpel JSON key-value voorbeeld]{Een simpel voorbeeld van een key-value JSON bestand. \autocite{Kurian2020}}
     \label{fig:JSONsEx}
 \end{figure}
-
 
 \subsection{Message formaat}
 \label{subsec:Message formaat}
@@ -283,8 +284,89 @@ Veldnamen moeten volledig in kleine letters zijn en indien ze uit meerdere woord
 
 Elk veld heeft een uniek nummer, deze nummers worden gebruikt om de velden te identificeren in het binaire formaat. Als gevolg mogen deze niet veranderd worden eens het message type reeds gebruikt is.
 
+\section{gRPC}
+\label{sec:gRPC}
 
+\subsection{Wat is gRPC?}
+\label{subsec:Wat is gRPC?}
 
+gRPC is open source Remote Procedure Call (RPC) framework en is in 2015 ontstaan uit zijn voorganger Stubby, deze was een single general-purpose RPC infrastructuur~\autocite{gRPC}. Deze technologie laat het toe voor een programma om procedures te starten op andere computers in, eventueel, verschillende ip-ranges aan de hand van een smal comminucatiekanaal~\autocite{Nelson1981}.
+
+\subsection{Design Principes en requirements}
+\label{subsec: Design Principes en requirements}
+
+\textbf{Geen objecten maar services en Messages in plaats van Referenties}
+
+Hiermee is het de bedoeling om de mircoservices design philosofie van coarse-grained berichtenuitwisseling te promoten zonder de problemen van gedistribueerde objecten \autocite{FowlerDisObj} en de valkuilen van het negeren van het netwerk \autocite{GalOz2008} te hebben.
+
+\textbf{Coverage en Simpliciteit}
+
+gRPC moet beschikbaar zijn op elk populair ontwikkelplatform en moet gemakkelijk zijn om op te bouwen op een platform naar keuze. Alsook moet gRPC werken op toestellen die CPU en geheugen gelimiteerd zijn.
+
+\textbf{Gratis en Open}
+
+De fundamentale features van gRPC zijn gratis om te gebruiken en  alle artifacten worden gereleased als open-source efforts, hierbij moet licensing er voor zorgen dat het aannemen van het framework wordt vergemakkelijkt en niet vermoeilijkt.
+
+\textbf{Interoperabiliteit en Bereik}
+
+Het wire protocol moet zonder problemen kunnen reizen doorheen de internet infrastructuur.
+
+\textbf{Algemeen Doel en Performant}
+
+De stack moet bruikbaar zijn in een grote aanbod van use-cases zonder dat performantie verloren gaat ten opzichte van specifieke stack voor die use-case.
+
+\textbf{Gelaagd}
+
+Onderdelen van de stack moeten zich individueel evolueren, bij het updaten van het wire-formaat met het vernieuwde onderdeel mogen de bindingen tussen de applicatielagen niet verstoord worden.
+
+\textbf{Payload Agnostisch}
+
+gRPC en de implementatie ervan zorgen ervoor dat elke service  een andere message type en encoding systeem kan gebruiken zoals protocol buffers en JSON. Alsook zorgt gRPC er voor dat verschillende payload compressie mechanismes kunnen gebruikt worden aangezien deze kunnen verschillen per use-case.
+
+\textbf{Streaming}
+
+gRPC moet bruikbaar zijn met streaming, onder andere opslagsystemen maken hier gebruik van samen met flow control om grote data-sets uit te drukken. Er zijn ook andere services zoals voice-to-text die afhankelijk zijn van streaming voor berichtsequenties te representeren die een tijdelijke relatie hebben met elkaar.
+
+\textbf{Blocking en Non-Blocking}
+
+gRPC ondersteund zowel asynchrone als synchrone processing van de data uitwisseling tussen client en server. Deze requirement is van groot belang op vlak van schaalbaarheid en het omgaan met streams.
+
+\textbf{Annulering en Timeout}
+
+Doordat sommige operaties lang en “duur” kunnen zijn op vlak van resources laat annulering het toe voor een server om de resources terug ter beschikking te zetten wanneer clients zich goed gedragen. Annulering kan ook cascaden wanneer een causale keten is gedetecteerd.
+
+\textbf{Lameducking}
+
+Een server moet zich kunnen afsluiten door reeds lopende requests af te werken maar geen nieuwe requests meer te accepteren.
+
+\textbf{Flow Control}
+
+Flow control zorgt voor betere buffer management dat kan ontstaan door een onevenwichtige balans van computing power en netwerk capaciteit tussen client en server. Als ook biedt flow control bescherming tegen DOS door een over actieve peer.
+
+\textbf{Pluggable}
+
+Een wire protocol zoals gRPC is enkel een onderdeel van een API infrastructuur. Implementaties van gRPC moeten extensiepunten voorzien voor het inpluggen van features zoals logging, health-checking, tracing,... en indien nuttig een basis implementatie van de feature.
+
+\textbf{Extensies als APIs}
+
+Extensies waarvoor een samenwerking tussen meerdere services nodig is moeten de voorkeur hebben van een API te gebruiken in plaats van protocol extensies. Voorbeelden van zulke extensies zijn health-checking en load-monitoring.
+
+\textbf{Metadata uitwisseling}
+Zaken zoals authenticatie zijn afhankelijk van het gebruik van metadata, dit is data die geen onderdeel is van de gegevensuitwisseling die gedifinieerd is in de interface of service.
+
+\textbf{Gestandaardiseerde statuscodes}
+Er zijn voor de client maar een gelimiteerd aantal manieren voor het omgaan met error die verkegen zijn van de API. Om de error handling beslissingen duidelijker te maken moet de statuscode namespace afgebakend worden, indien er meer specifieke statussen nodig zijn kan hiervoor metadata gebruikt worden.
+
+\subsection{Werking van gRPC}
+\label{subsec: Werking van gRPC}
+
+Bij gRPC kan een client applicatie een bepaalde methode die op een remote server draait rechtstreeks aanspreken alsof het een lokaal object zou zijn, dit maakt het gemakkelijk voor het gebruiken van distribueerde applicaties en services.
+
+gRPC definieerd net zoals in vele RPC systemen, een service waarin de methodes die kunnen worden aangeroepen worden gespecificeerd samen met hun parameters en return types. Deze interface wordt op de server geïmplementeerd en draait een gRPC server om client calls af te handelen. De client heeft een stub die dezelfde methodes als de server bevat.
+
+Op deze manier kunnen gRPC servers en clients draaien en tegen elkaar praten in verschillende omgevingen. Dit laat het bijvoorbeeld toe om een gRPC server in C\# te draaien met clients die draaien in Python of dergelijke.
+
+Standaard worden door gRPC Protocol Buffers gebruikt, hierbij worden de services gedefinieerd in ordinaire proto bestanden met RPC methode parameters en return types als protocol buffer messages. Aan de hand van het protoc commando samen met een gRPC plugin wordt automatisch client en server code gegenereerd op basis van het proto bestand samen met de standaard protobuf code voor het populeren, serialiseren en ophalen van de gespecificeerde message types.
 
 
 
