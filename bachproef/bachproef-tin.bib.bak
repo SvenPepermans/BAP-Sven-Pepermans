@@ -83,4 +83,39 @@
   urldate = {2021-04-11},
 }
 
+@Online{GalOz2008,
+  author = {Arnon Rotem-Gal-Oz},
+  date   = {2008-01-01},
+  title  = {Fallacies of Distributed Computing Explained},
+  url    = {https://www.researchgate.net/publication/322500050_Fallacies_of_Distributed_Computing_Explained},
+}
+
+@Online{Richardson,
+  author  = {Chris Richardson},
+  title   = {Pattern: Self Registration},
+  url     = {https://microservices.io/patterns/self-registration.html},
+  urldate = {2021-04-18},
+}
+
+@Online{Richardsona,
+  author  = {Chris Richardson},
+  title   = {Pattern: Server-side Service Discovery},
+  url     = {https://microservices.io/patterns/server-side-discovery.html},
+  urldate = {2021-04-18},
+}
+
+@Online{Richardsonb,
+  author  = {Chris Richardson},
+  title   = {Patten: API-gateway},
+  url     = {https://microservices.io/patterns/apigateway.html},
+  urldate = {2021-04-18},
+}
+
+@Online{Richardsonc,
+  author  = {Chris Richardson},
+  title   = {Pattern: Microservice architecture},
+  url     = {https://microservices.io/patterns/microservices.html},
+  urldate = {2021-04-18},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}

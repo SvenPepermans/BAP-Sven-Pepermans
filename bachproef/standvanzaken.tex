@@ -368,6 +368,55 @@ Op deze manier kunnen gRPC servers en clients draaien en tegen elkaar praten in 
 
 Standaard worden door gRPC Protocol Buffers gebruikt, hierbij worden de services gedefinieerd in ordinaire proto bestanden met RPC methode parameters en return types als protocol buffer messages. Aan de hand van het protoc commando samen met een gRPC plugin wordt automatisch client en server code gegenereerd op basis van het proto bestand samen met de standaard protobuf code voor het populeren, serialiseren en ophalen van de gespecificeerde message types.
 
+\section{Interne architectuur Fashion Society}
+
+De Fashion Society werkt met een architectuur gebouwd rond microservices. Om de gehele flow binnen de architectuur te garanderen is deze gebaseerd op basis van enkele design patronen. Om de architectuur te verstaan zullen de design patronen die van toepassing zijn in deze bachelorproef kort uitgelegd worden aan de hand van hun huidige toepassing.
+
+\subsection{Microservice architectuur patroon}
+\label{subsec:Microservice architectuur patroon}
+
+Dit patroon zegt dat de architectuur bestaat uit meerdere los van elkaar staande, samenwerkende services waarin elke service:
+ \begin{itemize}
+     \item Onderhoudbaar en testbaar is. Hierdoor kunnen services snel aangepast en gedeployed worden.
+     \item Los verbonden is van andere services, dit zorgt ervoor dat elke service kan draaien zonder beïnvloed te worden door veranderingen in andere services.
+     \item Zelfstandig deployable is.
+     \item Ontwikkelbaar door een klein team.
+ \end{itemize}
+\autocite{Richardsonc}
+
+Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communiceren de services aan de hand van HTTP/REST protocollen.
+
+\subsection{API-gateway patroon}
+\label{subsec:API-gateway patroon}
+
+ In dit patroon wordt gedefinieerd dat de architectuur een API gateway heeft. Deze is het enige entry point voor alle clients. \autocite{Richardsonb}
+ 
+ Dit patroon staat bij de Fashion Society in nauwe samenwerking met het Service registry patroon en het Self Registration patroon en wordt de Orchestrator genoemd.
+ 
+ \subsection{Service Registry patroon}
+ \label{subsec:Service Registry patroon}
+ 
+ Het Service Registry patroon zegt dat de architectuur een service registry bevat, deze is een database van services en hun gegevens. \autocite{Richardsona} Bij de Fashion Society is dit de Discovery API en bevat deze de servicenaam, server en poort en wordt deze aangeroepen door de Orchestrator. Deze aanroeping gebeurt aan de hand van een request die de gegevens van een bepaalde service opvraagt.
+ 
+ \subsection{Self Registration patroon}
+ \label{subsec:Self Registration patroon}
+ 
+ Elke instantie van een service is zelf verantwoordelijk om bij het opstarten zichzelf te registreren bij de Service Registry. \autocite{Richardson}
+ 
+ In de Startup klasse van elke service zit er een stuk code waarin ze zich gaan registreren bij de Discovery API, dit gebeurd enkel wanneer er in een online omgeving wordt gewerkt zoals de test, UAT en live omgevingen.
+ 
+ \subsection{Algemen werking voorbeeld}
+ \label{subsec:Algemene werking voorbeeld}
+ 
+ Een personeelslid van team Customer Service wil graag een klant opzoeken om deze verder te helpen. Hij geeft de gegevens in, in een tool die klanten ophaalt, dit is nu de Client. 
+ 
+ De Client komt binnen bij de Orchestrator met de request om een bepaalde klant op te halen, in deze request zit ook de naam van de benodigde API, zijnde de CustomerAPI. Vervolgens stuurt de Orchestrator een request naar de DiscoveryAPI voor de gegevens van de gevraagde API, de DiscoveryAPI zal deze request beantwoorden met de server en poort waarop de CustomerAPI te vinden is. 
+ 
+ Dan kopiëerd de Orchestrator de originele request van de Client naar een nieuwe call die wordt verzonden naar de CustomerAPI op basis van de verkregen server en poortnummer. Deze call zal dan beantwoord worden met de juiste klantgegevens en gaat via de Orchestrator terug tot bij de Client. 
+ 
+ 
+
+
 
 
 
