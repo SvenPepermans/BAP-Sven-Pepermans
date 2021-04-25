@@ -214,7 +214,7 @@ Zoals eerder vermeld in subsectie \ref{subsec:Design principes} heeft elke resou
 \section{Protocol Buffers}
 \label{sec:Protocol Buffers}
 
- In dit hoofdstuk zal Protocol Buffers verduidelijkt worden, dit is het dataformaat dat gebruikt zal worden bij de implementatie van gRPC. In dit onderzoek is Protocol Buffers de tegenhanger van JSON.
+ In dit hoofdstuk zullen Protocol Buffers verduidelijkt worden, dit is het dataformaat dat gebruikt zal worden bij de implementatie van gRPC. In dit onderzoek zijn Protocol Buffers de tegenhanger van JSON.
 
 \subsection{Wat zijn protocol buffers?}
 \label{subsec:Wat zijn protocol buffers?}
@@ -232,7 +232,7 @@ Formaten zoals JSON en XML zijn zeer flexibel maar zijn niet geoptimaliseerd voo
 
 Protobuf onderscheidt zich van andere dataformaten door vele verantwoordelijkheden te verwijderen die normaal door het dataformaat aangepakt worden. Hierdoor gaat protobuf zich vooral focussen op het zo snel mogelijk serialiseren en deserialiseren van data. Daarnaast is een tweede optimalisatie de bandbreedte die gebruikt wordt door het zo klein mogelijk maken van de data die verzonden wordt.
 
-Natuurlijk kan protobufs niet alleen voordelen hebben, een objectief nadeel dat protobuf heeft is dat het minder leesbaar is in vergelijking met JSON en XML.
+Natuurlijk kunnen protobufs niet alleen voordelen hebben, een objectief nadeel dat protobuf heeft is dat het minder leesbaar is in vergelijking met JSON en XML.
 
 Er bestaan meerdere versies van Protocol buffers, momenteel is de standaard protocol buffers versie 3 (proto3).
 
@@ -242,7 +242,7 @@ Er bestaan meerdere versies van Protocol buffers, momenteel is de standaard prot
 
 \textbf{Binair formaat}
 
-Protobuf is een binair dataformaat, dit betekent dat de verzonden data omgezet wordt naar ééntjes en nulletjes. Deze eigenschap zorgt voor een verbetering van de transmissiesnelheid doordat het dataformaat minder bandbreedte en ruimte inpakt. Tot slot zorgt de omzetting van string naar binair formaat ook voor compressie, hierdoor zal het CPU gebruik ook lager zijn.
+Protobuf is een binair dataformaat, dit betekent dat de verzonden data omgezet wordt naar ééntjes en nulletjes. Deze eigenschap zorgt voor een verbetering van de transmissiesnelheid doordat het dataformaat minder bandbreedte en ruimte inneemt. Tot slot zorgt de omzetting van string naar binair formaat ook voor compressie, hierdoor zal het CPU gebruik ook lager zijn.
 
 \textbf{Splitsing van context en data}
 
@@ -329,7 +329,7 @@ gRPC moet bruikbaar zijn met streaming, onder andere opslagsystemen maken hier g
 
 \textbf{Blocking en Non-Blocking}
 
-gRPC ondersteund zowel asynchrone als synchrone processing van de data uitwisseling tussen client en server. Deze requirement is van groot belang op vlak van schaalbaarheid en het omgaan met streams.
+gRPC ondersteunt zowel asynchrone als synchrone processing van de data uitwisseling tussen client en server. Dit requirement is van groot belang op vlak van schaalbaarheid en het omgaan met streams.
 
 \textbf{Annulering en Timeout}
 
@@ -352,9 +352,11 @@ Een wire protocol zoals gRPC is enkel een onderdeel van een API infrastructuur. 
 Extensies waarvoor een samenwerking tussen meerdere services nodig is moeten de voorkeur hebben van een API te gebruiken in plaats van protocol extensies. Voorbeelden van zulke extensies zijn health-checking en load-monitoring.
 
 \textbf{Metadata uitwisseling}
-Zaken zoals authenticatie zijn afhankelijk van het gebruik van metadata, dit is data die geen onderdeel is van de gegevensuitwisseling die gedifinieerd is in de interface of service.
+
+Zaken zoals authenticatie zijn afhankelijk van het gebruik van metadata, dit is data die geen onderdeel is van de gegevensuitwisseling die gedefinieerd is in de interface of service.
 
 \textbf{Gestandaardiseerde statuscodes}
+
 Er zijn voor de client maar een gelimiteerd aantal manieren voor het omgaan met error die verkegen zijn van de API. Om de error handling beslissingen duidelijker te maken moet de statuscode namespace afgebakend worden, indien er meer specifieke statussen nodig zijn kan hiervoor metadata gebruikt worden.
 
 \subsection{Werking van gRPC}
@@ -362,9 +364,9 @@ Er zijn voor de client maar een gelimiteerd aantal manieren voor het omgaan met 
 
 Bij gRPC kan een client applicatie een bepaalde methode die op een remote server draait rechtstreeks aanspreken alsof het een lokaal object zou zijn, dit maakt het gemakkelijk voor het gebruiken van distribueerde applicaties en services.
 
-gRPC definieerd net zoals in vele RPC systemen, een service waarin de methodes die kunnen worden aangeroepen worden gespecificeerd samen met hun parameters en return types. Deze interface wordt op de server geïmplementeerd en draait een gRPC server om client calls af te handelen. De client heeft een stub die dezelfde methodes als de server bevat.
+gRPC definieert net zoals in vele RPC systemen, een service waarin de methodes die kunnen worden aangeroepen worden gespecificeerd samen met hun parameters en return types. Deze interface wordt op de server geïmplementeerd en draait een gRPC server om client calls af te handelen. De client heeft een stub die dezelfde methodes als de server bevat.
 
-Op deze manier kunnen gRPC servers en clients draaien en tegen elkaar praten in verschillende omgevingen. Dit laat het bijvoorbeeld toe om een gRPC server in C\# te draaien met clients die draaien in Python of dergelijke.
+Op deze manier kunnen gRPC servers en clients draaien en tegen elkaar praten in verschillende omgevingen. Dit laat het bijvoorbeeld toe om een gRPC server in C\# te draaien met clients die draaien in Python.
 
 Standaard worden door gRPC Protocol Buffers gebruikt, hierbij worden de services gedefinieerd in ordinaire proto bestanden met RPC methode parameters en return types als protocol buffer messages. Aan de hand van het protoc commando samen met een gRPC plugin wordt automatisch client en server code gegenereerd op basis van het proto bestand samen met de standaard protobuf code voor het populeren, serialiseren en ophalen van de gespecificeerde message types.
 
