@@ -258,7 +258,7 @@ Zoals in \ref{fig:JSONsEx} te zien is maakt een formaat zoals JSON gebruik van k
 \subsection{Message formaat}
 \label{subsec:Message formaat}
 
-Zoals hierboven vermeld is het configuratiebestand de plaats waarin de context gedefinieerd wordt, met andere woorden wordt hier de structuur van een bepaald object bepaald. Deze structuur wordt als gedeclareerd door het “message” woord gevolgd door een zelfgekozen naam voor de message. Net zoals bij JSON worden de velden gedeclareerd binnen de accolades, deze velden kunnen elk in vier delen opgedeeld worden, namelijk veldregels, veldtypes, veldnamen en veldnummers \autocite{Google2020}.
+Zoals hierboven vermeld is het configuratiebestand de plaats waarin de context gedefinieerd wordt, met andere woorden wordt hier de structuur van een bepaald object bepaald. Deze structuur wordt gedeclareerd door het “message” woord gevolgd door een zelfgekozen naam voor de message. Net zoals bij JSON worden de velden gedeclareerd binnen de accolades, deze velden kunnen elk in vier delen opgedeeld worden, namelijk veldregels, veldtypes, veldnamen en veldnummers \autocite{Google2020}.
 
 \textbf{Veldregels}
 
@@ -325,7 +325,7 @@ gRPC en de implementatie ervan zorgen ervoor dat elke service  een andere messag
 
 \textbf{Streaming}
 
-gRPC moet bruikbaar zijn met streaming, onder andere opslagsystemen maken hier gebruik van samen met flow control om grote data-sets uit te drukken. Er zijn ook andere services zoals voice-to-text die afhankelijk zijn van streaming voor berichtsequenties te representeren die een tijdelijke relatie hebben met elkaar.
+gRPC moet bruikbaar zijn met streaming, onder andere opslagsystemen maken hier gebruik van samen met flow control om grote data-sets uit te drukken. Er zijn ook andere services zoals voice-to-text die afhankelijk zijn van streaming voor berichtsequenties te representeren die een tijdelijke relatie hebben met elkaar. Streaming is enkel mogelijk dankzij het gebruik van het HTTP/2 protocol \autocite{Grigorik2013} 
 
 \textbf{Blocking en Non-Blocking}
 
@@ -370,9 +370,11 @@ Op deze manier kunnen gRPC servers en clients draaien en tegen elkaar praten in 
 
 Standaard worden door gRPC Protocol Buffers gebruikt, hierbij worden de services gedefinieerd in ordinaire proto bestanden met RPC methode parameters en return types als protocol buffer messages. Aan de hand van het protoc commando samen met een gRPC plugin wordt automatisch client en server code gegenereerd op basis van het proto bestand samen met de standaard protobuf code voor het populeren, serialiseren en ophalen van de gespecificeerde message types.
 
-\section{Interne architectuur Fashion Society}
 
-De Fashion Society werkt met een architectuur gebouwd rond microservices. Om de gehele flow binnen de architectuur te garanderen is deze gebaseerd op basis van enkele design patronen. Om de architectuur te verstaan zullen de design patronen die van toepassing zijn in deze bachelorproef kort uitgelegd worden aan de hand van hun huidige toepassing.
+\section{Interne architectuur Fashion Society}
+\label{sec:Interne architectuur Fashion Society}
+
+De Fashion Society werkt met een architectuur gebouwd rond microservices, om de gehele flow binnen de architectuur te garanderen is deze gebaseerd op basis van enkele design patronen. Om de architectuur te verstaan zullen de design patronen die van toepassing zijn in deze bachelorproef kort uitgelegd worden aan de hand van hun huidige toepassing.
 
 \subsection{Microservice architectuur patroon}
 \label{subsec:Microservice architectuur patroon}
@@ -410,11 +412,22 @@ Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communi
  \subsection{Algemen werking voorbeeld}
  \label{subsec:Algemene werking voorbeeld}
  
- Een personeelslid van team Customer Service wil graag een klant opzoeken om deze verder te helpen. Hij geeft de gegevens in, in een tool die klanten ophaalt, dit is nu de Client. 
+ Een personeelslid van team Customer Service wil graag een klant opzoeken om deze verder te helpen. Hij geeft de gegevens in in een tool die klanten ophaalt, dit is nu de Client. 
  
  De Client komt binnen bij de Orchestrator met de request om een bepaalde klant op te halen, in deze request zit ook de naam van de benodigde API, zijnde de CustomerAPI. Vervolgens stuurt de Orchestrator een request naar de DiscoveryAPI voor de gegevens van de gevraagde API, de DiscoveryAPI zal deze request beantwoorden met de server en poort waarop de CustomerAPI te vinden is. 
  
  Dan kopiëerd de Orchestrator de originele request van de Client naar een nieuwe call die wordt verzonden naar de CustomerAPI op basis van de verkregen server en poortnummer. Deze call zal dan beantwoord worden met de juiste klantgegevens en gaat via de Orchestrator terug tot bij de Client. 
+ 
+ Dit gehele proces kan gevolgd worden in figuur \ref{fig:CSFlow}
+ 
+ \begin{figure}[H]
+     \centering
+     \includegraphics[scale=0.5]{CSFlow}
+     \caption[Customer Service Dataflow]{De interne werking voor het afhandelen van klantengegevens}
+     \label{fig:CSFlow}
+ \end{figure}
+ 
+ 
  
  
 

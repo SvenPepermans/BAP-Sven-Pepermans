@@ -99,8 +99,8 @@
 
 @Online{Richardsona,
   author  = {Chris Richardson},
-  title   = {Pattern: Server-side Service Discovery},
-  url     = {https://microservices.io/patterns/server-side-discovery.html},
+  title   = {Pattern: Service Registry},
+  url     = {https://microservices.io/patterns/service-registry.html},
   urldate = {2021-04-18},
 }
 
