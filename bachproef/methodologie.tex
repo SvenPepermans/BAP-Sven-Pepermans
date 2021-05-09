@@ -43,8 +43,8 @@ Voor de logica in de twee endpoints GetService en GetServiceUrl die respectievel
 
 De reeds bestaande Discovery API maakt gebruik van het repository patroon voor het ophalen en verwerken van data uit een SQL database in de gRPC service zal dit patroon wegvallen en zal de databasecontext rechtstreeks in de Service geïnjecteerd worden. Uit een verdere analyse van de bestaande code kan er ook geconcludeerd worden dat beide methoden gebruik maken van éénzelfde Get methode in de repository, deze wordt een private methode in de Service die zal worden aangesproken door beide endpoints.
 
-Het protobestand “services.proto” uit dewelke de bijhorende modellen zullen worden gegenereerd bevat de 2 rpc methodes GetService en GetServiceUrl, beiden hebben deze een input parameter van het messagetype “ServiceName” met als veld een string “name”.
-De GetService methode zal een message van het type “ServiceObject” teruggeven, deze bevat de “name”, “address”, “port”, “addNameToUrl” en “hasSwaggedDoc” velden. Deze velden zijn licht afwijkend met het reeds bestaande Model in de Discovery API maar is in samenspraak met mijn co-promotor.
+Het protobestand “services.proto” waaruit de bijhorende modellen worden gegenereerd bevat de 2 rpc methodes GetService en GetServiceUrl, beiden hebben deze een input parameter van het messagetype “ServiceName” met als veld een string “name”.
+De GetService methode zal een message van het type “ServiceObject” teruggeven, deze bevat de “name”, “address”, “port”, “addNameToUrl” en “hasSwaggedDoc” velden. Deze velden zijn licht afwijkend van het reeds bestaande Model in de Discovery API maar is in samenspraak met mijn co-promotor.
 Tot slot is er de GetServiceUrl methode, deze geeft een message van het type “ServiceUrl” terug dewelke een enkel veld bevat zijnde “url”.
 
 In figuur \ref{fig:ProtoPoC} is het gebruikte protobestand te zien.
@@ -59,16 +59,16 @@ In figuur \ref{fig:ProtoPoC} is het gebruikte protobestand te zien.
 \subsection{Client applicaties voor REST en gRPC}
 \label{subsec:Client applicaties voor REST en gRPC}
 
-Voor de snelheid van beide implementaties te kunnen testen moeten de services worden aangesproken van een client. Hiervoor worden twee identieke implmentaties gebruikt in twee Console applicaties (.NET Core). De enige verschillen tussen de twee applicaties zijn de aangesproken endpoints. Deze applicaties zullen aan de hand van een lijst van vier servicenamen parallelle calls doen naar de service. Er is voor vier servicenamen gekozen zodanig dat er rekening wordt gehouden met eventuele verschillen in het ophalen van de verschillende data.
+Om de snelheid van beide implementaties te testen moeten de services worden aangesproken van een client. Hiervoor worden twee identieke implmentaties gebruikt in twee Console applicaties (.NET Core). De enige verschillen tussen de twee applicaties zijn de aangesproken endpoints. Deze applicaties zullen aan de hand van een lijst van vier servicenamen calls doen naar de service. Er is voor vier servicenamen gekozen zodanig dat er rekening wordt gehouden met eventuele verschillen in het ophalen van de verschillende data.
 
-Tijdens het gehele proces zullen twee timers lopen, een overlappende timer die de totale tijd van de calls zal opnemen en een timer die per tien calls de tijd in miliseconden zal wegschrijven naar een lijst die na afloop zal worden geëxporteerd naar een csv bestand.
+Tijdens het gehele proces zullen twee timers lopen, een overlappende timer die de totale tijd van de calls zal opnemen en een timer die per 100 calls de tijd in miliseconden zal wegschrijven naar een lijst die na afloop zal worden geëxporteerd naar een bestand.
 
 \subsection{Het verloop van het onderzoek}
 \label{subsec:Het verloop van het onderzoek}
 
-Het onderzoek wordt uitgevoerd in twee categorieën, een kleine en grote payload. In de kleine payload zullen er in totaal vierduizend calls gemaakt worden, elke servicenaam zal tien keer parallel gebruikt worden om vervolgens honderd requests te versturen. In de grote payload zullen er veertigduizend calls gemaakt worden, en hier zal elke servicenaam honderd keer parallel gebruikt worden om vervolgens honderd requests te versturen.
+Het onderzoek wordt uitgevoerd in drie categorieën, een kleine en grote payload voor het resultaat van parallele requests en een request loop van tienduizend requests voor een gewogen resultaat voor één request te berekenen. In de kleine payload zullen er in totaal vierduizend calls gemaakt worden, elke servicenaam zal tien keer parallel gebruikt worden om vervolgens honderd requests te versturen. In de grote payload zullen er veertigduizend calls gemaakt worden en hier zal elke servicenaam honderd keer parallel gebruikt worden om vervolgens honderd requests te versturen.
 
-De applicaties zullen vier keer uitgevoerd worden in elke categorie om tot een concreet resultaat te bekomen.
+De kleine en grote payload zullen vier keer uitgevoerd worden om tot een concreet resultaat te bekomen.
 
 Het CPU gebruik zal manueel in de gaten gehouden worden maar zal in samenspraak met de co-promotor niet in acht genomen worden in de resultaten omdat er geen accurate manier beschikbaar is om het CPU gebruik op de server te registreren.
 

@@ -400,23 +400,23 @@ Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communi
  \subsection{Service Registry patroon}
  \label{subsec:Service Registry patroon}
  
- Het Service Registry patroon zegt dat de architectuur een service registry bevat, deze is een database van services en hun gegevens. \autocite{Richardsona} Bij de Fashion Society is dit de Discovery API en bevat deze de servicenaam, server en poort en wordt deze aangeroepen door de Orchestrator. Deze aanroeping gebeurt aan de hand van een request die de gegevens van een bepaalde service opvraagt.
+ Het Service Registry patroon zegt dat de architectuur een service registry bevat, dit is een database van services en hun gegevens. \autocite{Richardsona} Bij de Fashion Society is dit de Discovery API en bevat deze de servicenaam, server en poort en wordt deze aangeroepen door de Orchestrator. Deze aanroeping gebeurt aan de hand van een request die de gegevens van een bepaalde service opvraagt.
  
  \subsection{Self Registration patroon}
  \label{subsec:Self Registration patroon}
  
  Elke instantie van een service is zelf verantwoordelijk om bij het opstarten zichzelf te registreren bij de Service Registry. \autocite{Richardson}
  
- In de Startup klasse van elke service zit er een stuk code waarin ze zich gaan registreren bij de Discovery API, dit gebeurd enkel wanneer er in een online omgeving wordt gewerkt zoals de test, UAT en live omgevingen.
+ In de Startup klasse van elke service zit er een stuk code waarin ze zich gaan registreren bij de Discovery API, dit gebeurt enkel wanneer er in een online omgeving wordt gewerkt zoals de test, UAT en live omgevingen.
  
- \subsection{Algemen werking voorbeeld}
+ \subsection{Algemene werking voorbeeld}
  \label{subsec:Algemene werking voorbeeld}
  
  Een personeelslid van team Customer Service wil graag een klant opzoeken om deze verder te helpen. Hij geeft de gegevens in in een tool die klanten ophaalt, dit is nu de Client. 
  
  De Client komt binnen bij de Orchestrator met de request om een bepaalde klant op te halen, in deze request zit ook de naam van de benodigde API, zijnde de CustomerAPI. Vervolgens stuurt de Orchestrator een request naar de DiscoveryAPI voor de gegevens van de gevraagde API, de DiscoveryAPI zal deze request beantwoorden met de server en poort waarop de CustomerAPI te vinden is. 
  
- Dan kopiëerd de Orchestrator de originele request van de Client naar een nieuwe call die wordt verzonden naar de CustomerAPI op basis van de verkregen server en poortnummer. Deze call zal dan beantwoord worden met de juiste klantgegevens en gaat via de Orchestrator terug tot bij de Client. 
+ Dan kopieert de Orchestrator de originele request van de Client naar een nieuwe call die wordt verzonden naar de CustomerAPI op basis van de verkregen server en poortnummer. Deze call zal dan beantwoord worden met de juiste klantgegevens en gaat via de Orchestrator terug tot bij de Client. 
  
  Dit gehele proces kan gevolgd worden in figuur \ref{fig:CSFlow}
  
