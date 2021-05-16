@@ -118,4 +118,13 @@
   urldate = {2021-04-18},
 }
 
+@InBook{Grigorik2013,
+  author    = {Ilya Grigorik},
+  booktitle = {High Performance Browser Networking},
+  date      = {2013-09-01},
+  title     = {Introduction to HTTP/2},
+  isbn      = {9781449344764},
+  url       = {https://developers.google.com/web/fundamentals/performance/http2},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}

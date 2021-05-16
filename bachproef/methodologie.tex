@@ -2,8 +2,8 @@
 %% Methodologie
 %%=============================================================================
 
-\chapter{\IfLanguageName{dutch}{Methodologie}{Methodology}}
-\label{ch:methodologie}
+\chapter{\IfLanguageName{dutch}{Praktijk onderzoek}{Practical Research}}
+\label{ch:Praktijk onderzoek}
 
 %% TODO: Hoe ben je te werk gegaan? Verdeel je onderzoek in grote fasen, en
 %% licht in elke fase toe welke stappen je gevolgd hebt. Verantwoord waarom je
@@ -13,9 +13,7 @@
 
 In hoofdstuk 2 is het onderzoek gestart met een literatuurstudie waarin besproken werd wat REST, JSON, gRPC en Protobufs exact zijn en hoe de interne architectuur van Fashion Society er uitziet.
 
-In dit hoofdstuk gaat het onderzoek verder met een requirementanalyse en een plan van aanpak waarin beschreven wordt hoe de proof-of-concept tot stand komt.
-
-
+In dit hoofdstuk gaat het onderzoek verder met een requirementanalyse en een plan van aanpak waarin beschreven wordt hoe de proof-of-concept tot stand komt en wat de resultaten hiervan zijn.
 
 \section{Requirementanalyse}
 \label{sec:Requirementanalyse}
@@ -67,7 +65,7 @@ In figuur \ref{fig:ProtoPoC} is het gebruikte protobestand te zien.
 \subsection{Client applicaties voor REST en gRPC}
 \label{subsec:Client applicaties voor REST en gRPC}
 
-Om de snelheid van beide implementaties te testen moeten de services worden aangesproken van een client. Hiervoor worden twee identieke implmentaties gebruikt in twee Console applicaties (.NET Core). De enige verschillen tussen de twee applicaties zijn de aangesproken endpoints. Deze applicaties zullen aan de hand van een lijst van vier servicenamen calls doen naar de service. Er is voor vier servicenamen gekozen zodanig dat er rekening wordt gehouden met eventuele verschillen in het ophalen van de verschillende data.
+Om de snelheid van beide implementaties te testen moeten de services worden aangesproken van een client. Hiervoor worden twee identieke implementaties gebruikt in twee Console applicaties (.NET Core). De enige verschillen tussen de twee applicaties zijn de aangesproken endpoints. Deze applicaties zullen aan de hand van een lijst van vier servicenamen calls doen naar de service. Er is voor vier servicenamen gekozen zodanig dat er rekening wordt gehouden met eventuele verschillen in het ophalen van de verschillende data.
 
 Tijdens het gehele proces zal een timer lopen die de totale tijd van de calls zal opnemen.
 
@@ -81,4 +79,43 @@ De kleine en grote payload zullen daarintegen vier keer uitgevoerd worden om tot
 
 
 Het CPU gebruik zal manueel in de gaten gehouden worden maar zal in samenspraak met de co-promotor niet in acht genomen worden in de resultaten omdat er geen accurate manier beschikbaar is om het CPU gebruik op de server te registreren.
+
+\section{Resultaat Proof-Of-Concept}
+\label{sec:Resultaat Proof-Of-Concept}
+
+\subsection{Single Call}
+\label{subsec:Single Call}
+Uit het onderzoek is gebleken dat gRPC met ProtocolBuffers voor zowel de GetService methode (-24,06\%) als de GetServiceUrl methode (-23,78\%) sneller is dan REST met JSON.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{singleCall}
+    \caption[Single Call Response Time]{Resultaat van het onderzoek naar Single call response time.}
+    \label{fig:SingleCallResult}
+\end{figure}
+
+De verwachting van dit onderdeel was dat het resultaat bij de single call response time een marginaal verschil ging zijn in voordeel van gRPC doordat de response op de calls een kleine hoeveelheid data is voor beide methodes, echter toonde het resultaat een groter dan verwacht verschil in snelheid in voordeel  van gRPC.
+
+\subsection{Vierduizend Parallelle Calls}
+\label{subsec:Vierduizend parallelle calls}
+Uit het onderzoek is gebleken dat gRPC voor zowel de GetService methode (-15,63\%) als voor de GetServiceUrl methode (-20,34\%) sneller is dan REST bij het afhandelen van vierduizend parallelle calls.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{VierduizendCalls}
+    \caption[Resultaten van vierduizend parallelle calls]{Resultaat van het onderzoek naar een kleine hoeveelheid parallelle calls.}
+    \label{fig:VierduizendCallsResult}
+\end{figure}
+
+Bij dit onderdeel is het resultaat onder de verwachtingen, de verwachtingen waren dat gRPC opmerkelijk sneller ging zijn dan REST door de hoeveelheid aan af te handelen requests. Echter is het gebleken dat dit een verkeerde redenering was voor de verwachting, de hoeveelheid data in de response op elke call blijft namelijk nog altijd klein.
+
+\subsection{Tienduizend Parallelle Calls}
+\label{subsec:Tienduizend parallelle calls}
+Uit het onderzoek is gebleken dat gRPC voor zowel de GetService methode (-13,96\%) als voor de GetServiceUrl methode (-16,35\%) sneller is dan REST bij het afhandelen van tienduizend parallelle calls.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{TienduizendCalls}
+    \caption[Resultaten van tienduizend parallelle calls]{Resultaat van het onderzoek naar een grote hoeveelheid parallelle calls.}
+    \label{fig:TienduizendCallsResult}
+\end{figure}
+
+Net zoals bij de kleine hoeveelheid parallelle calls is het resultaat hier onder de verwachtingen. gRPC is voor zowel de GetService methode (-13,96\%) als voor de GetServiceUrl methode (-16,35\%) sneller dan REST maar ook hier is voor de verwachting dezelfde verkeerde redenering gebruikt als bij de kleine hoeveelheid parallelle calls. Het aantal parallelle calls is wel verhoogd maar de hoeveelheid data in de response op de calls blijft nog altijd hetzelfde.
 
