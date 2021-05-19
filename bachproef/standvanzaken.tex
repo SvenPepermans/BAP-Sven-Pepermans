@@ -393,21 +393,61 @@ Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communi
 \subsection{API-gateway patroon}
 \label{subsec:API-gateway patroon}
 
- In dit patroon wordt gedefinieerd dat de architectuur een API gateway heeft. Deze is het enige entry point voor alle clients. \autocite{Richardsonb}
+ In dit patroon wordt gedefinieerd dat de architectuur een API gateway heeft. Deze is het enige entry point voor alle clients \autocite{Richardsonb}.
  
- Dit patroon staat bij de Fashion Society in nauwe samenwerking met het Service registry patroon en het Self Registration patroon en wordt de Orchestrator genoemd.
+ Dit patroon staat bij de Fashion Society in nauwe samenwerking met het Service registry patroon en het Self Registration patroon en wordt de Orchestrator genoemd.De Orchestrator heerst en verdeelt over de micro services, elke request, inclusief de interne requests tussen APIs moeten via de Orchestrator verlopen.
  
  \subsection{Service Registry patroon}
  \label{subsec:Service Registry patroon}
  
- Het Service Registry patroon zegt dat de architectuur een service registry bevat, dit is een database van services en hun gegevens. \autocite{Richardsona} Bij de Fashion Society is dit de Discovery API en bevat deze de servicenaam, server en poort en wordt deze aangeroepen door de Orchestrator. Deze aanroeping gebeurt aan de hand van een request die de gegevens van een bepaalde service opvraagt.
+ Het Service Registry patroon zegt dat de architectuur een service registry bevat, dit is een database van services en hun gegevens. \autocite{Richardsona} Bij de Fashion Society is dit de een SQL database die aan de Discovery API hangt en de servicenaam, server en poort bevat. Deze database wordt aangeroepen door de endpoints in de Discovery API. Deze aanroepingen gebeuren aan de hand van requests die de gegevens van een bepaalde service kunnen opvragen zoals de url van de locatie van een service of het volledige service object.
  
  \subsection{Self Registration patroon}
  \label{subsec:Self Registration patroon}
  
  Elke instantie van een service is zelf verantwoordelijk om bij het opstarten zichzelf te registreren bij de Service Registry. \autocite{Richardson}
  
- In de Startup klasse van elke service zit er een stuk code waarin ze zich gaan registreren bij de Discovery API, dit gebeurt enkel wanneer er in een online omgeving wordt gewerkt zoals de test, UAT en live omgevingen.
+ In de Startup klasse van elke service zit er een stuk code waarin de service zich gaan aanmelden bij de Discovery API aan de hand van een POST request zijnde RegisterService, dit gebeurt enkel wanneer er in een online omgeving wordt gewerkt zoals de test, UAT en live omgevingen, dit is om te voorkomen dat een bepaalde service al beschikbaar is in de Discovery API maar in realiteit nog niet draait.
+ 
+ \subsection{SOLID Principes}
+ \label{subsec:SOLID Principe}
+ 
+ De SOLID principes zijn een onderdeel van Object-Oriented Programming en zijn vijf richtlijnen voor het ontwikkelen van software zodanig dat deze eenvoudiger zijn om te onderhouden en eventueel te schalen. Hieronder een verduidelijking van elke letter in het woord SOLID. \autocite{Thelma}
+ 
+ \textbf{Single Responsibility}
+ 
+ Het eerse principe is single responsibility, dit principe zegt dat een klasse of in de context van deze bachelorproef, een micro-service maar één verantwoordelijkheid mag hebben. Naar mate een klasse of service meer verantwoordelijkheden heeft, wordt her risico bij het aanpassen van een verantwoordelijkheid groter dat een bug opduikt bij een andere verantwoordelijkheid. 
+ 
+ Dit principe gaat gepaard met punt twee van sectie \ref{subsec:Microservice architectuur patroon} dat zegt dat elke service los verbonden moet zijn van andere services.
+ 
+ Een customer service mag dus geen data behandelen dat te maken heeft met vouchers, dat is de taak van de voucher service.
+ 
+ \textbf{Open-Closed}
+ 
+ Een klasse of service moet open zijn voor uitbreiding maar gesloten voor aanpassing. Het gedrag van een bepaalde endpoint in een service mag niet zomaar aangepast worden, dit heeft namelijk invloed op alle services of applicaties die deze endpoint gebruiken. Indien een endpoint van een service extra functionaliteit moet hebben is het beter om een nieuwe endpoint aan te maken die voor deze extra functionaliteit zorgt.
+ 
+ Het doel van dit principe is om extra functionaliteit te voorzien zonder problemen te veroorzaken bij services of applicaties waar de huidige functionaliteit gebruikt wordt.
+ 
+ \textbf{Liskov Substitution}
+ 
+ Als een klasse S van een bepaald subtype T is dan kunnen klasses van type T vervangen worden door klasses van type S zonder dat het invloed heeft op de propeties van het programma.
+ 
+ Concreet wil dit zeggen dat als een klasse overerft van een andere klasse, deze minstens hetzelfde moet kunnen doen als de ouder. Dit principe heeft als doel om consistentie te verzekeren doorheen een programma, zodanig dat een kind klasse en ouder klasse foutloos op dezelfde manier kunnen gebruikt worden.
+ 
+ \textbf{Interface Segregation}
+ 
+ Het is beter om meer specifieke interfaces te hebben dan één algemene interface. Een client zou geen methodes moeten implementeren die deze niet gebruikt. Het implementeren van methodes die niet gebruikt worden en dus nutteloos zijn heeft als grootste nadeel dat deze onverwachte bugs kunnen creëren.
+ 
+ Met andere woorden moet een klasse enkel methodes implementeren die nodig zijn voor uitvoeren van zijn taken, andere methodes die niet van toepassen zijn moeten dus verwijderd worden of verplaatst naar een andere interface indien ze gebruikt worden door een andere klasse.
+ 
+ Het doel hiervan is om methodes op te splitsen in meerdere interfaces zodanig dat een klasse enkel de methodes moet implementeren die hij nodig heeft.
+ 
+ \textbf{Dependency Inversion}
+ 
+ Tot slot is er Dependency Inversion, dependency inversion zegt dat men niet afhankelijk moet zijn van implementaties maar van abstracties. Dit kan bereikt worden door het gebruik van Dependency Injection \autocite{Ilyana}.
+ 
+ Het doel van Dependency Inversion is om de afhankelijkheid van een high-level klasse op een low-level klasse te beperken. Beide moeten afhankelijk zijn van abstracties.
+ 
  
  \subsection{Algemene werking voorbeeld}
  \label{subsec:Algemene werking voorbeeld}
