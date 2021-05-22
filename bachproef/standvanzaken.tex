@@ -22,7 +22,7 @@ Daarnaast kan een API op verschillende manieren ontworpen worden, volledig op ma
 \subsection{Hoe werkt een API?}
 \label{subsec:Hoe werkt een API?}
 
-Een API communiceert op basis van vooropgestelde regels die bepalen hoe applicaties en machines met elkaar kunnen communiceren. In dit proces is de API een tussenlaag tussen twee applicaties of machines dat met elkaar willen connecteren voor een specifieke taak.
+Een API communiceert op basis van vooropgestelde regels die bepalen hoe applicaties en machines met elkaar kunnen communiceren. In dit proces is de API een tussenlaag tussen twee applicaties of machines die met elkaar willen connecteren voor een specifieke taak.
 
 Een simpel voorbeeld hiervan is het opzoeken van gegevens in Google Search. In de webpagina wordt een zoekterm opgegeven en eens er op de zoekknop gedrukt wordt of op enter gedrukt wordt dan stuurt de webpagina een request naar de achterliggende API die vervolgens op de servers alle gerelateerde data gaat ophalen en terug weergeven aan de webpagina.
 
@@ -420,7 +420,7 @@ De Fashion Society werkt met een architectuur gebouwd rond microservices, om de 
 Dit patroon zegt dat de architectuur bestaat uit meerdere los van elkaar staande, samenwerkende services waarin elke service:
  \begin{itemize}
      \item Onderhoudbaar en testbaar is. Hierdoor kunnen services snel aangepast en gedeployed worden.
-     \item Los verbonden is van andere services, dit zorgt ervoor dat elke service kan draaien zonder beïnvloed te worden door veranderingen in andere services.
+     \item Losstaand is van andere services, dit zorgt ervoor dat elke service kan draaien zonder beïnvloed te worden door veranderingen in andere services.
      \item Zelfstandig deployable is.
      \item Ontwikkelbaar door een klein team.
  \end{itemize}
@@ -454,9 +454,9 @@ Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communi
  
  \textbf{Single Responsibility}
  
- Het eerse principe is single responsibility, dit principe zegt dat een klasse of in de context van deze bachelorproef, een micro-service maar één verantwoordelijkheid mag hebben. Naar mate een klasse of service meer verantwoordelijkheden heeft, wordt her risico bij het aanpassen van een verantwoordelijkheid groter dat een bug opduikt bij een andere verantwoordelijkheid. 
+ Het eerste principe is single responsibility, dit principe zegt dat een klasse of in de context van deze bachelorproef, een micro-service maar één verantwoordelijkheid mag hebben. Naar mate een klasse of service meer verantwoordelijkheden heeft, wordt het risico bij het aanpassen van een verantwoordelijkheid groter dat een bug opduikt bij een andere verantwoordelijkheid. 
  
- Dit principe gaat gepaard met punt twee van sectie \ref{subsec:Microservice architectuur patroon} dat zegt dat elke service los verbonden moet zijn van andere services.
+ Dit principe gaat gepaard met punt twee van sectie \ref{subsec:Microservice architectuur patroon} dat zegt dat elke service losstaand moet zijn van andere services.
  
  Een customer service mag dus geen data behandelen dat te maken heeft met vouchers, dat is de taak van de voucher service.
  
@@ -476,7 +476,7 @@ Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communi
  
  Het is beter om meer specifieke interfaces te hebben dan één algemene interface. Een client zou geen methodes moeten implementeren die deze niet gebruikt. Het implementeren van methodes die niet gebruikt worden en dus nutteloos zijn heeft als grootste nadeel dat deze onverwachte bugs kunnen creëren.
  
- Met andere woorden moet een klasse enkel methodes implementeren die nodig zijn voor uitvoeren van zijn taken, andere methodes die niet van toepassen zijn moeten dus verwijderd worden of verplaatst naar een andere interface indien ze gebruikt worden door een andere klasse.
+ Met andere woorden moet een klasse enkel methodes implementeren die nodig zijn voor uitvoeren van zijn taken, andere methodes die niet van toepassing zijn moeten dus verwijderd worden of verplaatst naar een andere interface indien ze gebruikt worden door een andere klasse.
  
  Het doel hiervan is om methodes op te splitsen in meerdere interfaces zodanig dat een klasse enkel de methodes moet implementeren die hij nodig heeft.
  
