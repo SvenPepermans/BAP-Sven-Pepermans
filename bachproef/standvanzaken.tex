@@ -7,7 +7,45 @@
 
 % Pas na deze inleidende paragraaf komt de eerste sectiehoofding.
 
-In de inleiding is duidelijk geworden dat het onderzoek gericht zal zijn op twee mogelijke dataformaten aan de hand van 2 verschillende structuren, namelijk JSON aan de hand van REST en gRPC aan de hand van Protocol Buffers. Om dit onderzoek volledig te kunnen begrijpen is het belangrijk om de werking en de basisprincipes van deze dataformaten en de daarbij behorende structuren te begrijpen. Om deze reden zullen eerst de werking en basisprincipes van JSON en RESTful API worden uitgelegd, en als volgt die van gRPC en Protocol Buffers.
+In de inleiding is duidelijk geworden dat het onderzoek gericht zal zijn op twee mogelijke dataformaten aan de hand van 2 verschillende structuren, namelijk JSON aan de hand van REST en gRPC aan de hand van Protocol Buffers. Om dit onderzoek volledig te kunnen begrijpen is het belangrijk om de werking en de basisprincipes van deze dataformaten en de daarbij behorende structuren te begrijpen. Om deze reden zal eerst kort uitgelegd worden wat een API is, vervolgens zal de werking en basisprincipes van JSON en RESTful API uitgelegd worden, en als volgt die van gRPC en Protocol Buffers. Alsook wordt de interne werking van de architectuur van de Fashion Society uitgelegd aan de hand van de gebruikte ontwerppatronen en een praktisch voorbeeld.
+
+\section{API}
+\label{sec:API}
+
+\subsection{Wat is een API?}
+\label{subsec:Wat is een API?}
+
+Een API of Application Programming Interface is een programma dat wordt gebruikt als tussenlaag die het mogelijk maakt voor twee applicaties om met elkaar te communiceren \autocite{HubSpire}. Meer in detail is het een interface die de interacties tussen meerderere applicaties, bestaande uit zowel hardware als software, gaat vastleggen. Deze interacties zijn in de vorm van requests, de interface legt vast hoe deze requests moeten afgehandeld worden, welke dataformaten gebruikt moeten worden, welke richtlijnen en conventies er gevolgd moeten worden etc.
+
+Daarnaast kan een API op verschillende manieren ontworpen worden, volledig op maat, specifiek voor een bepaalde applicatie of component of op basis van een standaard om interoperabiliteit te kunnen garanderen.
+
+\subsection{Hoe werkt een API?}
+\label{subsec:Hoe werkt een API?}
+
+Een API communiceert op basis van vooropgestelde regels die bepalen hoe applicaties en machines met elkaar kunnen communiceren. In dit proces is de API een tussenlaag tussen twee applicaties of machines dat met elkaar willen connecteren voor een specifieke taak.
+
+Een simpel voorbeeld hiervan is het opzoeken van gegevens in Google Search. In de webpagina wordt een zoekterm opgegeven en eens er op de zoekknop gedrukt wordt of op enter gedrukt wordt dan stuurt de webpagina een request naar de achterliggende API die vervolgens op de servers alle gerelateerde data gaat ophalen en terug weergeven aan de webpagina.
+
+\subsection{Verschillende API types}
+\label{subsec:Verschillende API types}
+
+Voor het onderzoek wordt er gebruik gemaakt van Web APIs, dit zijn APIs die gecontacteerd kunnen worden aan de hand van het HTTP protocol. Dit soort APIs kunnen we onderverdelen in vier categoriëen \autocite{Stoplight}.
+
+\textbf{Open APIs}
+
+Open APIs staan ook wel bekend als publieke APIs, dit zijn APIs die toegankelijk zijn met minimale restricties voor vrijwel iedereen. Mogelijks kan een Open API registratie vereisen of het gebruik van een API key. Dit soort APIs hebben als doel om data of services toegankelijk te maken voor externe gebruikers.
+
+\textbf{Interne APIs}
+
+Interne APIs zijn APIs die gebruikt worden binnen een bepaald bedrijf voor intern resources te kunnen delen zoals data en services. Op deze manier kunnen verschillende diensten of teams binnen éénzelfde bedrijf elkaars resources gebruiken. Voordelen van interne APIs zijn beveiliging en een gestandariseerde interface voor het connecteren van meerdere services.
+
+\textbf{Partner APIs}
+
+Partner APIs zijn gelijkend aan Open APIs, echter zitten hier veel meer restricties op en worden deze gecontrolleerd door een API Gateway (hoofdstuk \ref{subsec:API-gateway patroon}). Deze APIs worden het meest gebruikt voor doeleinden zoals het toegang verlenen tot betalende services en worden vaak gebruikt in Software as a Service.
+
+\textbf{Samengestelde APIs}
+
+De samengestelde APIs laten het toe om meerdere endpoints te contacteren aan de hand van één request. Dit soort APIs zijn vooral handig in microservice architecturen (hoofdstuk \ref{subsec:Microservice architectuur patroon}) in situaties waar data nodig is van meerdere services om één specifieke taak uit te voeren. Het gebruik van dit soort APIs kan voordelen opleveren zoals een vermindering in server load en verbetering van de performantie van een applicatie.
 
 \section{JSON}
 \label{sec:JSON}
@@ -73,12 +111,12 @@ Voor of na de meeste tokens is het toegestaan om witruimte te gebruiken, maar ni
 \subsection{Waarden}
 \label{subsec:Waarden}
 
-De bovengestelde tokens vormen de ruggengraat van een JSON-bestand, echter is het de bedoeling dat een JSON-bestand data overdraagt. Deze data kan aan de hand van verschillende waarden worden voorgesteld, namelijk als objecten, arrays, nummers, strings, true, false en null. Alle mogelijke waarden zijn zichtbaar in figuur \ref{jsonValue}.
+De bovengestelde tokens vormen de ruggengraat van een JSON-bestand, echter is het de bedoeling dat een JSON-bestand data overdraagt. Deze data kan aan de hand van verschillende waarden worden voorgesteld, namelijk als objecten, arrays, nummers, strings, true, false en null. Alle mogelijke waarden zijn zichtbaar in figuur \ref{fig:jsonValue}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[scale=0.75]{jsonValue}
-   \caption[JSON values]{De structuur van een JSON-waarde met alle mogelijke waarden die deze kan bevatten. Bron: \url{www.json.org}}
+   \caption[JSON values]{De structuur van een JSON-waarde met alle mogelijke waarden die deze kan bevatten. \autocite{Crockford}}
    \label{fig:jsonValue}
 \end{figure}
 
@@ -148,7 +186,6 @@ De codepunten die zich bevinden in het Basic Multilingual Plane worden gereprese
 \label{sec:RESTful API}
 
 Representational State Transfer (REST) is zoals beschreven door \textcite{Fielding2000} een architecturale stijl voor het ontwerpen van gedistribueerde hypermediasystemen.
-Een Application Program Interface (API) is een lijst van regels of restricties die ervoor zorgen dat verschillende programma's met elkaar kunnen communiceren. \autocite{Hubspire}
 
 De combinatie van REST en API is een RESTful API, wanneer een RESTful API gecalled wordt dan zal de server een representatie van de huidige staat van de gevraagde resource weergeven.
 
@@ -183,6 +220,7 @@ REST bevat vier interfacecontroles, namelijk:
 \item Zelfbeschrijvende communicatie: Een bericht bevat alle informatie die de ontvanger nodig heeft om de informatie te begrijpen. Er mag geen extra informatie in een aparte documentatie of apart bericht zitten. Deze zelfbeschrijvende communicatie gebeurt door het gebruik van de accept en content-type HTTP headers die de inhoud die verzonden of aangevraagd wordt beschrijft.
 \item Hypermedia: Hypermedia is data die verzonden wordt van de server naar de cliënt met informatie over wat de cliënt vervolgens kan doen. Hyper Text Markup Language (HTML) ~\autocite{W3schools} is hier een voorbeeld van.
 \end{enumerate}
+
 \textbf{Layered system}
 
 De architectuur van een RESTful API bestaat uit verschillende lagen die door samen te werken een hiërarchie vormen die helpt bij het vormen van een flexibele, meer schaalbare applicatie. Dankzij het deze gelaagde structuur is de gevormde applicatie beter beveiligd, dit komt doordat componenten niet kunnen interageren buiten de eigen laag en de volgende laag. Daarnaast biedt het gedeelde caches aan die de schaalbaarheid verbeteren.
@@ -449,6 +487,7 @@ Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communi
  Het doel van Dependency Inversion is om de afhankelijkheid van een high-level klasse op een low-level klasse te beperken. Beide moeten afhankelijk zijn van abstracties.
  
  
+ 
  \subsection{Algemene werking voorbeeld}
  \label{subsec:Algemene werking voorbeeld}
  
@@ -456,7 +495,7 @@ Binnen de Fashion Society wordt aan elk van deze requirements voldaan en communi
  
  De Client komt binnen bij de Orchestrator met de request om een bepaalde klant op te halen, in deze request zit ook de naam van de benodigde API, zijnde de CustomerAPI. Vervolgens stuurt de Orchestrator een request naar de DiscoveryAPI voor de gegevens van de gevraagde API, de DiscoveryAPI zal deze request beantwoorden met de server en poort waarop de CustomerAPI te vinden is. 
  
- Dan kopieert de Orchestrator de originele request van de Client naar een nieuwe call die wordt verzonden naar de CustomerAPI op basis van de verkregen server en poortnummer. Deze call zal dan beantwoord worden met de juiste klantgegevens en gaat via de Orchestrator terug tot bij de Client. 
+ Vervolgens kopieert de Orchestrator de originele request van de Client naar een nieuwe call die wordt verzonden naar de CustomerAPI op basis van de verkregen server en poortnummer. Deze call zal dan beantwoord worden met de juiste klantgegevens en gaat via de Orchestrator terug tot bij de Client. 
  
  Dit gehele proces kan gevolgd worden in figuur \ref{fig:CSFlow}
  
